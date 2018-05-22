@@ -1,0 +1,112 @@
+//index.js
+//获取应用实例
+const app = getApp()
+
+Page({
+  data: {
+    hotList:[],
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    imgUrls: [
+      '/static/images/bbc2-donate-rule.png',
+      '/static/images/bbc2-get-recommend.png',
+      '/static/images/bbc2-r-logo.png',
+      '/static/images/bbc2-redpacket-ts.png'
+    ],
+    indicatorDots: false,
+    autoplay: true,
+    interval: 5000,
+    duration: 1000,
+  },
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  },
+  onLoad: function () {
+    var that = this;
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse){
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+    wx.request({
+      url: 'http://ztbapi/services/getHotLists',
+      data:'',
+      success:function(res){
+        console.log(res.data.data);
+        that.setData({
+          hotList: res.data.data
+        })
+      }
+    })
+  },
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+  changeIndicatorDots: function (e) {
+    this.setData({
+      indicatorDots: !this.data.indicatorDots
+    })
+  },
+  changeAutoplay: function (e) {
+    this.setData({
+      autoplay: !this.data.autoplay
+    })
+  },
+  intervalChange: function (e) {
+    this.setData({
+      interval: e.detail.value
+    })
+  },
+  durationChange: function (e) {
+    this.setData({
+      duration: e.detail.value
+    })
+  },
+  lower: function (e) {
+    console.log('aaa')
+  },
+  scroll: function (e) {
+    console.log(e)
+  },
+  imageError: function (e) {
+    var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
+    var imgObject = "hotList.data[" + errorImgIndex + "].imageUrl" //carlistData为数据源，对象数组
+    var errorImg = {}
+    errorImg[imgObject] = "https://staticcdn2.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
+    this.setData(errorImg) //修改数据源对应的数据
+  }
+})
+
+wx.setNavigationBarTitle({
+  title: '帮帮爱心筹-产品众筹'
+})
