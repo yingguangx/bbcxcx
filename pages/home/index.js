@@ -95,9 +95,6 @@ Page({
   lower: function (e) {
     console.log('aaa')
   },
-  scroll: function (e) {
-    console.log(e)
-  },
   imageError: function (e) {
     var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
     var imgObject = "hotList.data[" + errorImgIndex + "].imageUrl" //carlistData为数据源，对象数组

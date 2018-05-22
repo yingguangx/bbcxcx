@@ -1,6 +1,8 @@
 <!--index.wxml-->
 <view class="container">
-  <swiper indicator-dots="{{indicatorDots}}"
+  <view class="section">
+    <scroll-view scroll-y="true" lower-threshold="200" style="height:1200px;" bindscrolltolower="lower">
+    <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular>
     <block wx:for="{{imgUrls}}">
       <swiper-item>
@@ -13,8 +15,6 @@
       • 精选项目
     </text>
   </view>
-  <view class="section">
-    <scroll-view scroll-y="true" lower-threshold="200" style="height:1200px;" bindscrolltolower="lower">
     <view wx:if="{{hotList.data.length > 0}}">
       <view class="pcc-item" wx:for="{{ hotList.data }}" wx:for-item="pcc">
         <view class="view-user">
