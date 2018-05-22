@@ -4,3 +4,6 @@
   background: #eee;
   box-sizing: border-box;
 } 
+page{ 
+  height: 100%;
+}
