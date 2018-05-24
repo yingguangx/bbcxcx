@@ -1,4 +1,7 @@
 /**index.wxss**/
+.section{
+  background: #eee;
+}
 .slide-image{
   width:100%;
 }
