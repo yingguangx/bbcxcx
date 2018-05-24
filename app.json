@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/create/index",
+    "pages/view/index",
     "pages/home/index",
     "pages/mine/index",
     "pages/comment/index",
