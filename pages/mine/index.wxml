@@ -1,0 +1,27 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="section">
+    <image src='/static/images/pcc-userinfo-b.png' style='width:100%;height:130px;'>
+    <cover-view class="controls">
+        <cover-view class="headImg" bindtap="play">
+          <cover-image class="img" src="{{ headImgUrl }}" />
+        </cover-view>
+        <cover-view class="info">
+          <cover-view class="name">
+            小赤佬
+          </cover-view>
+          <cover-view class="mobile">
+            19778278872
+          </cover-view>
+        </cover-view>
+    </cover-view>
+    </image>
+    <image src='/static/images/pcc-userinfo-mine.png' style='width:100%;height:60px;'></image>
+    <image src='/static/images/pcc-userinfo-comment.png' style='width:100%;height:60px;'></image>
+    <image src='/static/images/pcc-userinfo-follow.png' style='width:100%;height:60px;'></image>
+    <image src='/static/images/pcc-userinfo-addr.png' style='width:100%;height:60px;'></image>
+    <view class="call-view">
+    客服电话:<text class="call" bindtap='call'>4000004530</text>
+    </view>
+  </view>
+</view>

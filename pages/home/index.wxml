@@ -4,17 +4,17 @@
     <scroll-view scroll-y="true" lower-threshold="200" style="height:1200px;" bindscrolltolower="lower">
     <swiper indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular>
-    <block wx:for="{{imgUrls}}">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image"/>
-      </swiper-item>
-    </block>
-  </swiper>
-  <view class="view-subtitle">
-    <text class="subtitle">
-      • 精选项目
-    </text>
-  </view>
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="view-subtitle">
+      <text class="subtitle">
+        • 精选项目
+      </text>
+    </view>
     <view wx:if="{{hotList.data.length > 0}}">
       <view class="pcc-item" wx:for="{{ hotList.data }}" wx:for-item="pcc">
         <view class="view-user">

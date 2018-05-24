@@ -1,3 +1,4 @@
+var util = require('../../utils/util.js')
 //index.js
 //获取应用实例
 const app = getApp()
@@ -18,6 +19,8 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    loading:false,
+    pageNum:1
   },
   //事件处理函数
   bindViewTap: function() {
@@ -53,15 +56,20 @@ Page({
         }
       })
     }
-    wx.request({
-      url: 'http://ztbapi/services/getHotLists',
-      data:'',
-      success:function(res){
-        console.log(res.data.data);
-        that.setData({
-          hotList: res.data.data
-        })
-      }
+    // wx.request({
+    //   url: 'http://ztbapi/services/getHotLists',
+    //   data:'',
+    //   success:function(res){
+    //     console.log(res.data.data);
+    //     that.setData({
+    //       hotList: res.data.data
+    //     })
+    //   }
+    // })
+    util.getPromise({},'services/getHotLists').then(res=>{
+      that.setData({
+        hotList:res
+      })
     })
   },
   getUserInfo: function(e) {
@@ -93,7 +101,34 @@ Page({
     })
   },
   lower: function (e) {
-    console.log('aaa')
+    var hls = this.data.hotList
+    var that = this
+    if (that.data.loading == false && that.data.pageNum < 3){
+      wx.showNavigationBarLoading() 
+      that.setData({
+        loading:true
+      })
+      wx.request({
+        url: 'http://ztbapi/services/getHotLists',
+        data:{
+          pageNum:that.data.pageNum
+        },
+        // method:'POST',
+        dataType:'json',
+        success:function(res){
+          var newHot = {
+            success:"true",
+            data: hls.data.concat(res.data.data.data)
+          }
+          wx.hideNavigationBarLoading()
+          that.setData({
+            hotList: newHot,
+            loading:false,
+            pageNum: that.data.pageNum+1
+          })
+        }
+      })
+    }
   },
   imageError: function (e) {
     var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
@@ -102,8 +137,4 @@ Page({
     errorImg[imgObject] = "https://staticcdn2.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
     this.setData(errorImg) //修改数据源对应的数据
   }
-})
-
-wx.setNavigationBarTitle({
-  title: '帮帮爱心筹-产品众筹'
 })

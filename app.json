@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/mine/index",
     "pages/home/index",
     "pages/index/index",
     "pages/logs/logs"
@@ -29,7 +30,7 @@
         "text": "发起"
       },
       {
-        "pagePath": "pages/home/index",
+        "pagePath": "pages/mine/index",
         "iconPath": "/static/images/bbc2-wxpay.png",
         "selectedIconPath": "/static/images/bbc2-wxpay.png",
         "text": "我的"

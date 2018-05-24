@@ -1,9 +1,10 @@
+var hexMD5 = require('/utils/md5.js');
 //app.js
 App({
   globalData:{
     appid:'wx7767e3a8648e2624',
     secret:'2df5647341b7e93bcbd81ad4176baedc',
-    userInfo: null
+    userInfo: null,
   },
   onLaunch: function () {
     var that = this;
@@ -52,4 +53,45 @@ App({
       }
     })
   },
+  call:function(){
+    wx.makePhoneCall({
+      phoneNumber: '4000004530' //仅为示例，并非真实的电话号码
+    })
+  },
+  apiGet: function (url, data) {
+    return new promise((resolve,reject)=>{
+      var that = this;
+      var data = data;
+      wx.request({
+        url: 'http://ztbapi' + url,
+        data: data,
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data.data)
+          resolve(res.data.data)
+        },
+        fail: function () {
+          wx.showToast({
+            title: '网络连接失败！',
+          });
+        }
+      })
+    })
+  },
+
+  apiPost: function(url) {
+    var that = this;
+    wx.request({
+      url: 'http://ztbapi' + url,
+      data: data,
+      dataType: 'json',
+      method: 'POST',
+      success: function (res) {
+
+      },
+      fail: function () {
+
+      }
+    })
+  }
 })
