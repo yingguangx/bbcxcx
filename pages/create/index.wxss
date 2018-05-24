@@ -1,0 +1,80 @@
+/**index.wxss**/
+.section{
+  background: #eee;
+}
+.slide-image{
+  width:100%;
+}
+.pcc-item{
+  margin: 20rpx 0;
+  padding: 10rpx 0 20rpx 0;
+  background: #fff;  
+}
+.subtitle{
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 0 30rpx 15px;
+}
+.view-subtitle{
+    background-color: #FFFFFF;
+    width: 100%;
+    box-shadow: 0 0.05rem 0.1rem rgba(0,0,0,.3);
+}
+.view-user{
+  margin: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.view-user-headimg{
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  vertical-align: center;
+}
+.view-user-nick{
+    line-height: 56rpx;
+    padding-left: 10rpx;
+    font-size: 20rpx;
+}
+.view-pcc{
+  display: flex;
+  flex-direction: row;
+}
+.view-pcc-mainimg{
+  width:75px;
+  height: 75px;
+  padding-left: 20rpx;
+  vertical-align: center;
+}
+.view-pcc-tag{
+  width: 100rpx;
+  position: absolute;
+  right: 40rpx;
+}
+.view-pcc-pro{
+  font-size: 30rpx;
+  padding: 0 20rpx;
+}
+.view-pcc-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color:#999999;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+}
+.view-pcc-title{
+  margin: 20rpx;
+  font-size: 16px;
+  font-weight: 700;
+}
+.view-pcc-time{
+  margin: 20rpx;
+  color:rgb(169,169,169);
+  font-size: 14px;
+}

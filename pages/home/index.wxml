@@ -29,7 +29,7 @@
           <text>{{ pcc.condition }}</text>
         </view>
         <view class="view-pcc-pro">
-          <progress percent="{{ pcc.progress }}" show-info active activeColor="#2097ff" />
+          <progress percent="{{ pcc.progress }}" stroke-width='4' show-info active activeColor="#2097ff" />
         </view>
         <view class="view-pcc-info">
           <text>目标：{{ pcc.targetAmt }}元</text>

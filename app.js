@@ -1,4 +1,3 @@
-var hexMD5 = require('/utils/md5.js');
 //app.js
 App({
   globalData:{
@@ -35,13 +34,14 @@ App({
     })
     wx.getSetting({
       success: res => {
+        console.log(res);
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
+              console.log(res);
               // 可以将 res 发送给后台解码出 unionId
               that.globalData.userInfo = res.userInfo;
-              console.log(res);
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (that.userInfoReadyCallback) {
@@ -56,42 +56,6 @@ App({
   call:function(){
     wx.makePhoneCall({
       phoneNumber: '4000004530' //仅为示例，并非真实的电话号码
-    })
-  },
-  apiGet: function (url, data) {
-    return new promise((resolve,reject)=>{
-      var that = this;
-      var data = data;
-      wx.request({
-        url: 'http://ztbapi' + url,
-        data: data,
-        dataType: 'json',
-        success: function (res) {
-          console.log(res.data.data)
-          resolve(res.data.data)
-        },
-        fail: function () {
-          wx.showToast({
-            title: '网络连接失败！',
-          });
-        }
-      })
-    })
-  },
-
-  apiPost: function(url) {
-    var that = this;
-    wx.request({
-      url: 'http://ztbapi' + url,
-      data: data,
-      dataType: 'json',
-      method: 'POST',
-      success: function (res) {
-
-      },
-      fail: function () {
-
-      }
     })
   }
 })

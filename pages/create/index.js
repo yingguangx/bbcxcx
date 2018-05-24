@@ -5,7 +5,7 @@ const app = getApp()
 
 Page({
   data: {
-    hotList:[],
+    minePcc:[],
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -15,10 +15,6 @@ Page({
       '/static/images/bbc2-r-logo.png',
       '/static/images/bbc2-redpacket-ts.png'
     ],
-    indicatorDots: false,
-    autoplay: true,
-    interval: 5000,
-    duration: 1000,
     loading:false,
     pageNum:1
   },
@@ -56,75 +52,47 @@ Page({
         }
       })
     }
-    util.getPromise({},'services/getHotLists').then(res=>{
+    util.getPromise({},'services/getMinePcc').then(res=>{
       that.setData({
-        hotList:res
+        minePcc:res
       })
     })
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  changeIndicatorDots: function (e) {
-    this.setData({
-      indicatorDots: !this.data.indicatorDots
-    })
-  },
-  changeAutoplay: function (e) {
-    this.setData({
-      autoplay: !this.data.autoplay
-    })
-  },
-  intervalChange: function (e) {
-    this.setData({
-      interval: e.detail.value
-    })
-  },
-  durationChange: function (e) {
-    this.setData({
-      duration: e.detail.value
-    })
-  },
-  lower: function (e) {
-    var hls = this.data.hotList
-    var that = this
-    if (that.data.loading == false && that.data.pageNum < 3){
-      wx.showNavigationBarLoading() 
-      that.setData({
-        loading:true
-      })
-      wx.request({
-        url: 'http://ztbapi/services/getHotLists',
-        data:{
-          pageNum:that.data.pageNum
-        },
-        // method:'POST',
-        dataType:'json',
-        success:function(res){
-          var newHot = {
-            success:"true",
-            data: hls.data.concat(res.data.data.data)
-          }
-          wx.hideNavigationBarLoading()
-          that.setData({
-            hotList: newHot,
-            loading:false,
-            pageNum: that.data.pageNum+1
-          })
-        }
-      })
-    }
-  },
+  // lower: function (e) {
+  //   var hls = this.data.hotList
+  //   var that = this
+  //   if (that.data.loading == false && that.data.pageNum < 3){
+  //     wx.showNavigationBarLoading() 
+  //     that.setData({
+  //       loading:true
+  //     })
+  //     wx.request({
+  //       url: 'http://ztbapi/services/getHotLists',
+  //       data:{
+  //         pageNum:that.data.pageNum
+  //       },
+  //       // method:'POST',
+  //       dataType:'json',
+  //       success:function(res){
+  //         var newHot = {
+  //           success:"true",
+  //           data: hls.data.concat(res.data.data.data)
+  //         }
+  //         wx.hideNavigationBarLoading()
+  //         that.setData({
+  //           hotList: newHot,
+  //           loading:false,
+  //           pageNum: that.data.pageNum+1
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
   imageError: function (e) {
     var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
     var imgObject = "hotList.data[" + errorImgIndex + "].imageUrl" //carlistData为数据源，对象数组
     var errorImg = {}
     errorImg[imgObject] = "https://staticcdn2.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
     this.setData(errorImg) //修改数据源对应的数据
-  }
+  },
 })
