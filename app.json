@@ -1,7 +1,11 @@
 {
   "pages":[
-    "pages/mine/index",
+    "pages/create/index",
     "pages/home/index",
+    "pages/mine/index",
+    "pages/comment/index",
+    "pages/follow/index",
+    "pages/address/index",
     "pages/index/index",
     "pages/logs/logs"
   ],
