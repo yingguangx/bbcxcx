@@ -4,7 +4,8 @@
     <scroll-view scroll-y="true" lower-threshold="200" style="height:1200px;" bindscrolltolower="lower">
     <view wx:if="{{minePcc.data.length > 0}}">
       <view class="pcc-item" wx:for="{{ minePcc.data }}" wx:for-item="pcc">
-        <view class="view-user">
+        <navigator url="../view/index?donateView={{ pcc.guid }}">
+          <view class="view-user">
           <open-data class="view-user-headimg" data-errorimg="{{index}}" type="userAvatarUrl" binderror='imageError'></open-data>
           <open-data type="userNickName" style="font-size:14px;margin-left:20rpx;"></open-data>
           <image wx:if="{{ pcc.timeStatus == 1 }}" lazy-load class="view-pcc-tag" src="/static/images/colleting.png" mode='aspectFit'></image>
@@ -27,6 +28,7 @@
           <text>已筹：{{ pcc.fundAmt }}</text>
           <text>支持次数：{{ pcc.supportNum }}</text>          
         </view>
+        </navigator>
       </view>
     </view>
     </scroll-view>

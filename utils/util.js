@@ -44,6 +44,9 @@ function postPromise(data, url) {
       url: 'http://ztbapi/' + url,
       data: data,
       dataType: 'json',
+      header: {
+              'content-type': 'application/json'
+              },
       method:'POST',
       success: function (res) {
         resolve(res.data.data)

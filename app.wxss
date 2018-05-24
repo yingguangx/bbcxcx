@@ -17,3 +17,8 @@ page{
   font-size: 16px;
   color: rgb(8, 148, 236);
 }
+.line{
+  background: #e7e7e7;
+  height: 1px;
+  margin: 20rpx 0;
+}

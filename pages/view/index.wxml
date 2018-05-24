@@ -1,0 +1,39 @@
+<!--pages/view/index.wxml-->
+<view style="position:fixed;top:0;left:0;width:100%;z-index:2">
+  <image src="/static/images/pcc-view-top.png" style="width:100%;height:42px;"></image>
+  <image src="/static/images/pcc-view-back.png" style='width:21px;height:21px;position:fixed;top:25rpx;left:20rpx;'></image>
+  <view style='position:fixed;top:25rpx;left:65rpx;font-size:14px;color:#fff;'>首页</view>
+</view>
+<view class="section">
+  <view class="swiper-view">
+    <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular>
+        <block wx:for="{{imgUrls}}" wx:key="">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
+  </view>
+  <view>
+    <view class="view-user">
+      <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
+      <text class="view-user-nick">{{ pccInfo.data.nickName }}</text>
+      <view class="view-pcc-tag">剩余{{ pccInfo.data.daysRemain }}天</view>
+    </view>
+    <view class="view-pcc-title">{{ pccInfo.data.title }}</view>
+    <view class="view-pcc-pro">
+          <progress percent="{{ pccInfo.data.progress }}" stroke-width='4' show-info active activeColor="#2097ff" color="#2097ff;" />
+    </view>
+    <view class="view-des-info">
+      <view>产品介绍：{{ pccInfo.data.fundDes  }}</view>
+      <view>配送运费：{{ pccInfo.data.freight }}</view>
+      <view>发货时间：{{ pccInfo.data.delivaryTime }}</view>      
+    </view>
+    <view class="line"></view>
+    <view class="subtitle">
+        • 产品回报
+    </view>
+    <view class="line"></view>
+  </view>
+</view>
