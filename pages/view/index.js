@@ -1,5 +1,6 @@
 var util = require('../../utils/util.js')
 // pages/view/index.js
+const app = getApp()
 Page({
 
   /**
@@ -84,5 +85,9 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  redirectHome:function(){
+    app.redirectHome()
   }
 })
