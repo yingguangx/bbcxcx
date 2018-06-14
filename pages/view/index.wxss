@@ -11,6 +11,38 @@
   flex-direction: row;
   align-items: center;
 }
+.pcc-donate-tab{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+  font-size:28rpx;
+  position:absolute;
+  top:180px;
+  left:3%;
+  width:94%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 2px #E1F1FF;
+  padding:10px 0 5px 0;
+}
+.pcc-donate-money{
+  color:#F25B4B;
+  font-size:24px;
+  font-family: Knockout-30JuniorWelterwt;
+}
+.pcc-donate-font{
+  color:#707070;
+  font-size:16px;
+}
+.view-daily{
+  margin: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+.view-user-daily{
+  display: flex;
+  flex-direction: column;
+}
 .view-user-headimg{
   width: 70rpx;
   height: 70rpx;
@@ -18,7 +50,12 @@
   overflow: hidden;
   vertical-align: center;
 }
-.view-user-nick{
+.view-daily-nick{
+    line-height: 56rpx;
+    padding-left: 10rpx;
+    font-size: 32rpx;
+}
+.view-daily-time{
     line-height: 56rpx;
     padding-left: 10rpx;
     font-size: 28rpx;
@@ -48,4 +85,62 @@
     display: flex;
     align-items: center;
     padding:10rpx;
+}
+.view-pcc{
+  display: flex;
+  flex-direction: row;
+}
+.view-pcc-mainimg{
+  width:75px;
+  height: 75px;
+  padding-left: 20rpx;
+  vertical-align: center;
+}
+.view-pcc-title{
+  margin: 20rpx;
+  font-size: 16px;
+  font-weight: 700;
+}
+.view-pcc-time{
+  margin: 20rpx;
+  color:rgb(169,169,169);
+  font-size: 14px;
+}
+.view-tabs{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin-top: 40rpx;
+  border-bottom: 1px solid #999999;
+}
+.view-tab-condition{
+  display: inline-block;
+  width: 28%;
+  margin: 0 3%;
+}
+.view-tab-daily{
+  display: inline-block;
+  width: 28%;
+  margin: 0 3%;
+}
+.view-tab-comment{
+  display: inline-block;
+  width: 28%;
+  margin: 0 3%;
+}
+.view-condition-content{
+  display: none;
+}
+.view-condition-daily{
+  display: none;
+}
+.view-condition-comment{
+  display: none;
+}
+.activeTab{
+  color:#0894ec;
+  border-bottom:2px solid #0894ec;
+}
+.active{
+  display: inline-block;
 }

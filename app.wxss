@@ -1,24 +1,39 @@
 /**app.wxss**/
+
 .container {
   height: 100%;
   background: #eee;
   box-sizing: border-box;
-} 
-page{ 
+}
+
+page {
   height: 100%;
 }
-.call-view{
+
+.call-view {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-.call{
+
+.call {
   font-size: 16px;
   color: rgb(8, 148, 236);
 }
-.line{
+
+.line {
   background: #e7e7e7;
   height: 1px;
   margin: 20rpx 0;
+}
+
+/*声明 WebFont*/
+@font-face {
+  font-family: 'Knockout-30JuniorWelterwt';
+  src: url('/static/fonts/knockout30.eot');
+  src: url('/static/fonts/knockout30.eot') format('embedded-opentype'),
+         url('/static/fonts/knockout30.woff') format('woff'),
+         url('/static/fonts/knockout30.ttf') format('truetype'),
+         url('/static/fonts/knockout30.svg') format('svg');
 }
