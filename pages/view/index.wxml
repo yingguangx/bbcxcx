@@ -17,18 +17,18 @@
   <view class='pcc-donate-tab'>
     <view>
       <view class='pcc-donate-font'>目标金额（元）</view>
-      <view class='pcc-donate-money'>{{ pccInfo.data.targetAmt }}</view>      
+      <view class='pcc-donate-money'>{{ pccInfo.data.targetAmt }}</view>
     </view>
     <view style='border-left:1px solid #e7e7e7;padding-left:10px;'>
       <view class='pcc-donate-font'>已筹金额（元）</view>
-      <view class='pcc-donate-money'>{{ pccInfo.data.fundAmt }}</view>      
+      <view class='pcc-donate-money'>{{ pccInfo.data.fundAmt }}</view>
     </view>
     <view style='border-left:1px solid #e7e7e7;padding-left:10px;'>
       <view class='pcc-donate-font'>支持次数（次）</view>
-      <view class='pcc-donate-money'>{{ pccInfo.data.supportNum }}</view>      
+      <view class='pcc-donate-money'>{{ pccInfo.data.supportNum }}</view>
     </view>
   </view>
-  <view style='margin-top:80px;'>
+  <view style='margin-top:200rpx;'>
     <view class="view-user">
       <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
       <text class="view-user-nick">{{ pccInfo.data.nickName }}</text>
@@ -70,7 +70,7 @@
       </view>
       <view class='view-condition-daily {{ active == "view-condition-daily"?"active":"" }}'>
         <view style="margin:30rpx 20rpx 20rpx 20rpx">筹款动态（1）</view>
-        
+
         <view class="view-daily" wx:for="{{ pccInfo.data.pccDailies }}" wx:for-item="pccDaily">
           <view>
             <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
@@ -81,7 +81,7 @@
             </view>
             <view class='view-daily-time'>{{ pccDaily.createDate }}</view>
             <view class='view-daily-nick'>
-            {{ pccDaily.comment }}
+              {{ pccDaily.comment }}
             </view>
           </view>
         </view>
@@ -96,7 +96,8 @@
             </view>
             <view class='view-daily-time'>{{ pccInfo.data.createDate }}</view>
             <view class='view-daily-nick'>
-            目标金额 <text style='color:#0894ec'>{{ pccInfo.data.targetAmt }}</text>元
+              目标金额
+              <text style='color:#0894ec'>{{ pccInfo.data.targetAmt }}</text>元
             </view>
           </view>
         </view>
@@ -104,7 +105,7 @@
       </view>
       <view class='view-condition-comment {{ active == "view-condition-comment"?"active":"" }}'>
         <view style="margin:30rpx 20rpx 20rpx 20rpx">已获支持（次）</view>
-        
+
         <view class="view-daily" wx:for="{{ pccInfo.data.pccComments }}" wx:for-item="pccComment">
           <view>
             <image lazy-load class="view-user-headimg" src="{{ pccComment.headImgUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
@@ -115,12 +116,28 @@
             </view>
             <view class='view-daily-time'>{{ pccComment.createDate }}</view>
             <view class='view-daily-nick'>
-            {{ pccComment.comment }}
+              {{ pccComment.comment }}
             </view>
           </view>
         </view>
-
       </view>
     </view>
+  </view>
+</view>
+<view class='view-dnate-button'>
+  <view bindtap='follow' style='width:20%'>
+    <image src='{{ followSrc }}' style='width:48rpx;height:48rpx;'></image>
+    <view style='font-size:20rpx;'>
+      {{ followNum }}
+    </view>
+  </view>
+  <view bindtap='share' style='width:20%'>
+    <image src='/static/images/bbc2-share.png' style='width:48rpx;height:48rpx;'></image>
+    <view style='font-size:20rpx;'>
+      {{ pccInfo.data.transferNum }}
+    </view>
+  </view>
+  <view style='width:60%;height:50px;line-height:50px;background:#2097FF;color:#fff;'>
+    <text>我要支持</text>
   </view>
 </view>
