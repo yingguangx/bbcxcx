@@ -2,10 +2,10 @@
   "pages":[
     "pages/create/index",
     "pages/view/index",
-    "pages/home/index",
     "pages/mine/index",
     "pages/comment/index",
     "pages/follow/index",
+    "pages/home/index",    
     "pages/address/index",
     "pages/index/index",
     "pages/logs/logs"

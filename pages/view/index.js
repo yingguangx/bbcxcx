@@ -20,6 +20,9 @@ Page({
     duration: 1000,
     pccInfo:{},
     active:'view-condition-content',
+    followSrc:'/static/images/follow2.png',
+    followNum:0,
+    transferNum:0
   },
 
   /**
@@ -33,7 +36,8 @@ Page({
 
     util.postPromise({ 'guid': this.data.donateView}, 'services/getPccView').then(res => {
       that.setData({
-        pccInfo: res
+        pccInfo: res,
+        followNum: res.data.followNum,
       })
       console.log(that.data.pccInfo)
     });
@@ -104,5 +108,35 @@ Page({
     var errorImg = {}
     errorImg[imgObject] = "https://static.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
     this.setData(errorImg) //修改数据源对应的数据
+  },
+
+  share:function(){
+    app.share();
+  },
+
+  follow:function(){
+    var postData = {
+      'guid': this.data.donateView,
+      'userID':64
+    }
+    var that = this;
+    var followN = that.data.followNum
+    util.postPromise(postData, 'services/userFollow').then(res => {
+      if(res.data.status == 1){
+        that.setData({
+          followSrc: '/static/images/follow2.png',
+          followNum: Number(parseInt(followN) - 1),
+        })
+      }else{
+        that.setData({
+          followSrc: '/static/images/follow1.png',
+          followNum: Number(parseInt(followN) + 1),
+        })
+      }
+      wx.showToast({
+        title: res.data.msg,
+        icon: "none"
+      })
+    });
   }
 })
