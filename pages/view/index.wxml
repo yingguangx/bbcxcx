@@ -6,16 +6,29 @@
 </view>
 <view class="section">
   <view class="swiper-view">
-    <swiper indicator-dots="{{indicatorDots}}"
-    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular>
-        <block wx:for="{{imgUrls}}" wx:key="">
-          <swiper-item>
-            <image src="{{item}}" class="slide-image"/>
-          </swiper-item>
-        </block>
-      </swiper>
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular>
+      <block wx:for="{{imgUrls}}" wx:key="">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <view>
+  <view class='pcc-donate-tab'>
+    <view>
+      <view class='pcc-donate-font'>目标金额（元）</view>
+      <view class='pcc-donate-money'>{{ pccInfo.data.targetAmt }}</view>      
+    </view>
+    <view style='border-left:1px solid #e7e7e7;padding-left:10px;'>
+      <view class='pcc-donate-font'>已筹金额（元）</view>
+      <view class='pcc-donate-money'>{{ pccInfo.data.fundAmt }}</view>      
+    </view>
+    <view style='border-left:1px solid #e7e7e7;padding-left:10px;'>
+      <view class='pcc-donate-font'>支持次数（次）</view>
+      <view class='pcc-donate-money'>{{ pccInfo.data.supportNum }}</view>      
+    </view>
+  </view>
+  <view style='margin-top:80px;'>
     <view class="view-user">
       <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
       <text class="view-user-nick">{{ pccInfo.data.nickName }}</text>
@@ -23,17 +36,91 @@
     </view>
     <view class="view-pcc-title">{{ pccInfo.data.title }}</view>
     <view class="view-pcc-pro">
-          <progress percent="{{ pccInfo.data.progress }}" stroke-width='4' show-info active activeColor="#2097ff" color="#2097ff;" />
+      <progress percent="{{ pccInfo.data.progress }}" stroke-width='4' show-info active activeColor="#2097ff" color="#2097ff;" />
     </view>
     <view class="view-des-info">
-      <view>产品介绍：{{ pccInfo.data.fundDes  }}</view>
+      <view>产品介绍：{{ pccInfo.data.fundDes }}</view>
       <view>配送运费：{{ pccInfo.data.freight }}</view>
-      <view>发货时间：{{ pccInfo.data.delivaryTime }}</view>      
+      <view>发货时间：{{ pccInfo.data.delivaryTime }}</view>
     </view>
     <view class="line"></view>
     <view class="subtitle">
-        • 产品回报
+      <text style='color:#FBAA23'> • </text>产品回报
     </view>
     <view class="line"></view>
+    <view class="view-pcc" wx:for="{{ pccInfo.data.pccRepays }}" wx:for-item="pccRepay">
+      <view>
+        <image lazy-load class="view-pcc-mainimg" src="http://osscdn.zhongtuobang.com/pcc/{{ pccRepay.imageUrl }}!thumbpcc" style="width:75px;height:75px;"></image>
+      </view>
+      <view>
+        <view class="view-pcc-title">支持
+          <text style='color:red'>{{ pccRepay.money }}</text>元 已支持
+          <text style='color:red'>{{pccRepay.support}}</text> 份</view>
+        <view class="view-pcc-time">{{ pccRepay.condition }}</view>
+      </view>
+    </view>
+    <view class='view-tabs'>
+      <view class='view-tab-condition {{ active == "view-condition-content"?"activeTab":"" }}' id='view-condition-content' bindtap='tagClick'>产品详情</view>
+      <view class='view-tab-daily {{ active == "view-condition-daily"?"activeTab":"" }}' id='view-condition-daily' bindtap='tagClick'>筹款动态</view>
+      <view class='view-tab-comment {{ active == "view-condition-comment"?"activeTab":"" }}' id='view-condition-comment' bindtap='tagClick'>评价支持</view>
+    </view>
+    <view class='view-tabs-content'>
+      <view class='view-condition-content {{ active == "view-condition-content"?"active":"" }}'>
+        <rich-text nodes="{{ pccInfo.data.condition }}"></rich-text>
+      </view>
+      <view class='view-condition-daily {{ active == "view-condition-daily"?"active":"" }}'>
+        <view style="margin:30rpx 20rpx 20rpx 20rpx">筹款动态（1）</view>
+        
+        <view class="view-daily" wx:for="{{ pccInfo.data.pccDailies }}" wx:for-item="pccDaily">
+          <view>
+            <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
+          </view>
+          <view class='view-user-daily'>
+            <view>
+              <text class="view-daily-nick">{{ pccDaily.type }}</text>
+            </view>
+            <view class='view-daily-time'>{{ pccDaily.createDate }}</view>
+            <view class='view-daily-nick'>
+            {{ pccDaily.comment }}
+            </view>
+          </view>
+        </view>
+
+        <view class="view-daily">
+          <view>
+            <image lazy-load class="view-user-headimg" src="{{ pccInfo.data.imageUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
+          </view>
+          <view class='view-user-daily'>
+            <view>
+              <text class="view-daily-nick">{{ pccInfo.data.nickName }}发起了筹款</text>
+            </view>
+            <view class='view-daily-time'>{{ pccInfo.data.createDate }}</view>
+            <view class='view-daily-nick'>
+            目标金额 <text style='color:#0894ec'>{{ pccInfo.data.targetAmt }}</text>元
+            </view>
+          </view>
+        </view>
+
+      </view>
+      <view class='view-condition-comment {{ active == "view-condition-comment"?"active":"" }}'>
+        <view style="margin:30rpx 20rpx 20rpx 20rpx">已获支持（次）</view>
+        
+        <view class="view-daily" wx:for="{{ pccInfo.data.pccComments }}" wx:for-item="pccComment">
+          <view>
+            <image lazy-load class="view-user-headimg" src="{{ pccComment.headImgUrl }}" binderror='imageError' data-errorimg="{{index}}"></image>
+          </view>
+          <view class='view-user-daily'>
+            <view>
+              <text class="view-daily-nick">{{ pccComment.nickName }} 支持了 <text style='color:#F25B4B'>{{ pccComment.money }}</text>元 </text>
+            </view>
+            <view class='view-daily-time'>{{ pccComment.createDate }}</view>
+            <view class='view-daily-nick'>
+            {{ pccComment.comment }}
+            </view>
+          </view>
+        </view>
+
+      </view>
+    </view>
   </view>
 </view>

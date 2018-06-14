@@ -19,6 +19,7 @@ Page({
     interval: 5000,
     duration: 1000,
     pccInfo:{},
+    active:'view-condition-content',
   },
 
   /**
@@ -35,7 +36,7 @@ Page({
         pccInfo: res
       })
       console.log(that.data.pccInfo)
-    })
+    });
   },
 
   /**
@@ -89,5 +90,19 @@ Page({
 
   redirectHome:function(){
     app.redirectHome()
+  },
+
+  tagClick:function(e){
+    this.setData({
+      active: e.currentTarget.id
+    })
+  },
+
+  imageError: function (e) {
+    var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
+    var imgObject = "pccInfo.data.pccComments.[" + errorImgIndex + "].headImgUrl" //carlistData为数据源，对象数组
+    var errorImg = {}
+    errorImg[imgObject] = "https://static.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
+    this.setData(errorImg) //修改数据源对应的数据
   }
 })
