@@ -8,7 +8,8 @@
     "pages/home/index",    
     "pages/address/index",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/repay/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

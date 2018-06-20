@@ -1,0 +1,71 @@
+<!--pages/repay/index.wxml-->
+
+
+<view class="weui-cells weui-cells_after-title">
+  <checkbox-group bindchange="checkboxChange1">
+    <label class="weui-cell weui-check__label" wx:for="{{repays}}" wx:for-item="pccRepay" wx:key="value">
+      <view class="weui-cell__bd">
+        <view class="view-pcc">
+          <view>
+            <image lazy-load class="view-pcc-mainimg" src="http://osscdn.zhongtuobang.com/pcc/{{ pccRepay.imageUrl }}!thumbpcc" style="width:75px;height:75px;"></image>
+          </view>
+          <view>
+            <view class="view-pcc-title">支持
+              <text style='color:red'>{{ pccRepay.money }}</text>元
+              <text style='color:#5f646e'>{{pccRepay.number}}</text>
+            </view>
+            <view class="view-pcc-time">{{ pccRepay.condition }}</view>
+          </view>
+          <view style="position:absolute;right:-20rpx;top:50rpx;">
+            <checkbox class="weui-check" value="{{pccRepay.money}}" checked="{{pccRepay.checked}}" />
+
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!pccRepay.checked}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{pccRepay.checked}}"></icon>
+            </view>
+          </view>
+        </view>
+      </view>
+    </label>
+  </checkbox-group>
+</view>
+
+<view class="modals-contain" wx:if="{{ mask }}">
+  <view wx:for="{{repays}}" wx:for-item="pccRepay" wx:for-index="value">
+    <view class="work-box" style="padding:10px;display:flex;background:#fff;" wx:if="{{ pccRepay.show }}">
+      <view style="width:50%;font-size:32rpx;color:#A7A8AA;">
+        支持{{ pccRepay.money }}元 x{{ pccRepay.donateNum }}
+      </view>
+      <view style="width:20%;text-align:center;">
+        <text style="color:#F44336"> ￥{{ pccRepay.donateMoney }} </text>
+      </view>
+      <view style="width:30%;text-align:center;">
+        <view bindtap='deleteNumber' data-index="{{ value }}" style="display:inline-block">
+          <image src="/static/images/pcc-repay-d.png" style="width:30rpx;height:30rpx;"></image>
+        </view>
+        <text space="nbsp" style="vertical-align:center"> {{ pccRepay.donateNum }} </text>
+        <view bindtap='addNumber' data-index="{{ value }}" style="display:inline-block">
+          <image src="/static/images/pcc-repay-a.png" style="width:30rpx;height:30rpx;"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='view-dnate-button'>
+  <view bindtap='follow' style='width:60%'>
+    <view style='font-size:34rpx;'>
+      价格：
+      <text space="nbsp" style="color:#F44336">￥{{ allMoney }}  </text>
+      <image class="{{ imgRotate }}" bindtap='maskShow' src="/static/images/pcc-repay-up.png" style="width:30rpx;height:30rpx;"></image>
+    </view>
+  </view>
+
+  <view style='width:60%;height:50px;line-height:50px;background:#2097FF;color:#fff;'>
+    <navigator url="../repay/index?donateView={{ donateView }}">
+      <text>我要支持</text>
+    </navigator>
+  </view>
+
+</view>
+<view class="mask" wx:if="{{ mask }}"></view>
