@@ -21,7 +21,7 @@
   text-align: center;
   font-size: 28rpx;
   position: absolute;
-  top: 180px;
+  top: 160px;
   left: 3%;
   width: 94%;
   background: #fff;

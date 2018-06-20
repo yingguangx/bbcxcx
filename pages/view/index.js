@@ -39,6 +39,11 @@ Page({
         pccInfo: res,
         followNum: res.data.followNum,
       })
+      if (res.data.followStatus){
+        that.setData({
+          followSrc:'/static/images/follow1.png'
+        })
+      }
       console.log(that.data.pccInfo)
     });
   },
