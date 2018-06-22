@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userID:64,
     orderID: 0,
     provinceID: 0,
     cityID: 0,
@@ -17,6 +18,9 @@ Page({
     cityIndex: 0,
     distinctList: [],
     distinctIndex: 0,
+    comment:'',
+    receiveName:'',
+    receiveMobile:'',
   },
 
   /**
@@ -136,5 +140,99 @@ Page({
   
   call:function(){
     app.call();
+  },
+
+  addComment: function (e) {
+    console.log(e);
+    this.setData({
+      comment: e.detail.value
+    })
+  },
+
+  addReviveName:function(e){
+    console.log(e);
+    this.setData({
+      receiveName: e.detail.value
+    })
+  },
+
+  addReviveMobile: function (e) {
+    console.log(e);
+    this.setData({
+      receiveMobile: e.detail.value
+    })
+  },
+
+  createAddr:function(){
+    var that = this;
+    if (this.validateComment()){
+      var json_data = {
+        userID: this.data.userID,
+        receivedName: this.data.receiveName,
+        receivedMobile: this.data.receiveMobile,
+        provinceID: this.data.provinceID,
+        cityID: this.data.cityID,
+        distinctID: this.data.distinctID,
+        comment:this.data.comment,
+      }
+      util.postPromise({json_data}, 'services/changeAddress').then(res => {
+        if(res.success){
+          wx.navigateTo({
+            url: '../addressList/index?oid=' + that.data.orderID,
+          })
+        }else{
+          wx.showToast({
+            title: res.message,
+            icon:'none'
+          })
+        }
+      });
+    }
+  },
+
+  validateComment:function(){
+    if (this.data.provinceID == 0) {
+      wx.showToast({
+        title: '请选择省份！',
+        icon:'none',
+      })
+      return false;
+    }
+    if (this.data.cityID == 0) {
+      wx.showToast({
+        title: '请选择城市！',
+        icon: 'none',
+      })
+      return false;
+    }
+    if (this.data.distinctID == 0) {
+      wx.showToast({
+        title: '请选择县区！',
+        icon: 'none',
+      })
+      return false;
+    }
+    if (this.data.comment == "") {
+      wx.showToast({
+        title: '请填写详细地址',
+        icon: 'none',
+      })
+      return false;
+    }
+    if (!(/^[\u4e00-\u9fa5]+$/.test(this.data.receiveName))) {
+      wx.showToast({
+        title: '请输入正确的姓名！',
+        icon: 'none',
+      })
+      return false;
+    }
+    if (!this.data.receiveMobile.match(/^1[2|3|4|5|6|7|8|9][0-9]\d{8}$/)) {
+      wx.showToast({
+        title: '手机号码格式不正确！请重新输入！',
+        icon: 'none',
+      })
+      return false;
+    }
+    return true;
   }
 })

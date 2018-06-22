@@ -46,7 +46,7 @@
           <view class="weui-label">收件人</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入收件人" />
+          <input class="weui-input" placeholder="请输入收件人" bindblur="addReviveName" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -54,12 +54,12 @@
           <view class="weui-label">手机号</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入手机号" />
+          <input class="weui-input" placeholder="请输入手机号" bindblur="addReviveMobile" />
         </view>
       </view>
     </view>
     <view style='margin-top:60rpx;'>
-      <button class="weui-btn" style="background:#2097FF;width:90%;font-size:32rpx;color:#fff;">保存</button>
+      <button bindtap='createAddr' class="weui-btn" style="background:#2097FF;width:90%;font-size:32rpx;color:#fff;">保存</button>
     </view>
     <view style="text-align:center;margin-top:40rpx;">客服电话： <text style="color:#35A0FB;" bindtap='call'>4000004530</text> </view>
   </view>

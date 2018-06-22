@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/addaddress/index",
     "pages/create/index",
     "pages/view/index",
     "pages/mine/index",
@@ -12,7 +11,8 @@
     "pages/logs/logs",
     "pages/repay/index",
     "pages/pccOrder/index",
-    "pages/addressList/index"
+    "pages/addressList/index",
+    "pages/addaddress/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

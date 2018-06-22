@@ -38,7 +38,10 @@ Page({
       console.log(res)
       
       that.setData({
-        orderDetail:res.data 
+        orderDetail:res.data,
+        reciveName: res.data.receiveName,
+        mobile: res.data.mobile+'\n',
+        address: res.data.address
       })
     });
 

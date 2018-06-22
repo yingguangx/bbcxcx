@@ -37,7 +37,7 @@
     </view>
   </view>
 
-  <navigator url='/pages/addAddress/index?oid={{ orderID }}'>
+  <navigator url='/pages/addaddress/index?oid={{ orderID }}'>
     <button class="weui-btn" style="background:#2097FF;width:90%;font-size:32rpx;color:#fff;">添加新地址</button>
   </navigator>
 </view>
