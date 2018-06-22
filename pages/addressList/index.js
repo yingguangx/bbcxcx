@@ -87,5 +87,20 @@ Page({
     this.setData({
       addressLists: radioItems
     });
+    
+    var that = this;
+    util.postPromise({ 'oid': this.data.orderID, 'userID': 64, 'aid': e.detail.value}, 'services/selectAddr',).then(res => {
+      console.log(res)
+      if(res.data.success){
+        wx.navigateTo({
+          url: '../pccOrder/index?guid=' + wx.getStorageSync('donateView') + '&oid=' + wx.getStorageSync('oid') + '&m=' + wx.getStorageSync('allMoney'),
+        })
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none'
+        })
+      }
+    });
   },
 })
