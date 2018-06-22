@@ -80,26 +80,6 @@ Page({
 
   },
 
-  checkboxChange: function (e) {
-    console.log('checkbox发生change事件，携带value值为：', e.detail.value);
-
-    var checkboxItems = this.data.repays, values = e.detail.value;
-    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-      checkboxItems[i].checked = false;
-      console.log(values)
-      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (checkboxItems[i].money == values[j]) {
-          checkboxItems[i].checked = true;
-          break;
-        }
-      }
-    }
-
-    this.setData({
-      repays: checkboxItems
-    });
-  },
-
   checkboxChange1: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
     var that = this;
@@ -109,18 +89,18 @@ Page({
       checkboxItems[i].checked = false;
       checkboxItems[i].show = false;
       console.log(values)
-      if (values.length == 0){
+      if (values.length == 0) {
         checkboxItems[i].donateNum = 0
       }
       for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
         if (checkboxItems[i].money == values[j]) {
           checkboxItems[i].checked = true;
           checkboxItems[i].show = true;
-          if (checkboxItems[i].donateNum == 0){
+          if (checkboxItems[i].donateNum == 0) {
             checkboxItems[i].donateNum = 1;
           }
           break;
-        }else{
+        } else {
           checkboxItems[i].donateNum = 0
         }
       }
@@ -149,18 +129,18 @@ Page({
 
   },
 
-  deleteNumber:function(e){
+  deleteNumber: function (e) {
     var repays = this.data.repays;
     var index = e.currentTarget.dataset.index;
     var allMoney = this.data.allMoney;
     console.log(repays)
     console.log(e.currentTarget.dataset.index)
-    
-    if (repays[index].donateNum <= 1){
+
+    if (repays[index].donateNum <= 1) {
       wx.showToast({
         title: '最少支持一份',
       })
-    }else{
+    } else {
       repays[index].donateNum = parseInt(repays[index].donateNum) - 1;
       repays[index].donateMoney = parseInt(repays[index].donateNum) * parseFloat(repays[index].money)
       allMoney = parseFloat(allMoney) - parseFloat(repays[index].money)
@@ -185,5 +165,29 @@ Page({
       allMoney: allMoney
     })
 
+  },
+
+  createOrder:function(){
+    if(this.data.allMoney == 0){
+      wx.showToast({
+        title: '请选择回报后支持！',
+        icon:'none'
+      })
+      return false;
+    }
+    util.postPromise({ 'guid': this.data.donateView,'repays':this.data.repays,'allMoney':this.data.allMoney }, 'services/createPccOrders').then(res => {
+    
+      console.log(res)
+      if (res.success){
+        wx.navigateTo({
+          url: '../pccOrder/index'+res.data,
+        })
+      }else{
+        wx.showToast({
+          title: res.message,
+          icon:'none'
+        })
+      }
+    });
   }
 })

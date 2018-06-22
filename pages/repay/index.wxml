@@ -61,10 +61,8 @@
     </view>
   </view>
 
-  <view style='width:60%;height:50px;line-height:50px;background:#2097FF;color:#fff;'>
-    <navigator url="../repay/index?donateView={{ donateView }}">
-      <text>我要支持</text>
-    </navigator>
+  <view style='width:60%;height:50px;line-height:50px;background:#2097FF;color:#fff;' bindtap='createOrder'>
+    <text>我要支持</text>
   </view>
 
 </view>

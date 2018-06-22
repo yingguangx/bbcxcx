@@ -1,0 +1,4 @@
+/* pages/addaddress/index.wxss */
+.weui-cell{
+  position:none;
+}
