@@ -1,6 +1,6 @@
 <!--pages/addressList/index.wxml-->
 <view class="content">
-  <view class="addressList" wx:for="{{addressLists}}" wx:key="value">
+  <view class="addressList" wx:for="{{addressLists}}" wx:for-index="idx" wx:key="value">
     <view class="weui-cells weui-cells_after-title" style="margin:20rpx;box-shadow:0 0.05rem 0.1rem rgba(0,0,0,.3);padding:0 0 20rpx 0;">
       <radio-group bindchange="radioChange" style="font-size:32rpx;">
         <label class="weui-cell weui-check__label">
@@ -25,14 +25,16 @@
         </label>
       </radio-group>
       <view style="display:flex;align-items:center;justify-content:flex-end;">
-        <view data-aid="{{ item.id }}" bindtap='deleteAddr'>
+        <view data-aid="{{ item.id }}" data-index="{{ idx }}" bindtap='deleteAddr'>
           <image src='/static/images/pcc-delete.png' style="width:30rpx;height:30rpx;"></image>
           <text space='nbsp'> 删除  </text>
         </view>
-        <view data-aid="{{ item.id }}" bindtap='editAddr'>
-          <image src='/static/images/pcc-edit.png' style=" width:30rpx;height:30rpx; "></image>
-          <text space='nbsp'> 编辑  </text>
-        </view>
+        <navigator url='/pages/addaddress/index?aid={{ item.id }}'>
+          <view>
+            <image src='/static/images/pcc-edit.png' style=" width:30rpx;height:30rpx; "></image>
+            <text space='nbsp'> 编辑  </text>
+          </view>
+        </navigator>
       </view>
     </view>
   </view>

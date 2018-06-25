@@ -38,7 +38,7 @@
       </view>
 
       <view class="weui-cell weui-cell_input">
-        <textarea class="weui-textarea" placeholder="手动填写：例如街道名称，楼层门牌号等信息。" bindblur="addComment" style="height: 4em;background:#F8F8F8;padding:10rpx;width:97%;font-size:32rpx;" />
+        <textarea class="weui-textarea" placeholder="手动填写：例如街道名称，楼层门牌号等信息。" bindinput="addComment" value='{{ comment }}' style="height: 4em;background:#F8F8F8;padding:10rpx;width:97%;font-size:32rpx;" />
       </view>
 
       <view class="weui-cell weui-cell_input">
@@ -46,7 +46,7 @@
           <view class="weui-label">收件人</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入收件人" bindblur="addReviveName" />
+          <input class="weui-input" value='{{ receiveName }}' placeholder="请输入收件人" bindblur="addReviveName" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -54,7 +54,7 @@
           <view class="weui-label">手机号</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入手机号" bindblur="addReviveMobile" />
+          <input class="weui-input" value='{{ receiveMobile }}' placeholder="请输入手机号" bindblur="addReviveMobile" />
         </view>
       </view>
     </view>

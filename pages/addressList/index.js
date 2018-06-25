@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderID:0,
-    addressLists:[],
+    orderID: 0,
+    addressLists: [],
   },
 
   /**
@@ -16,7 +16,7 @@ Page({
   onLoad: function (options) {
     console.log(options.oid)
     this.setData({
-      orderID:options.oid
+      orderID: options.oid
     })
     var that = this;
     util.postPromise({ 'oid': this.data.orderID, 'userID': 64 }, 'services/addressList').then(res => {
@@ -31,49 +31,49 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   },
 
   radioChange: function (e) {
@@ -87,20 +87,53 @@ Page({
     this.setData({
       addressLists: radioItems
     });
-    
+
     var that = this;
-    util.postPromise({ 'oid': this.data.orderID, 'userID': 64, 'aid': e.detail.value}, 'services/selectAddr',).then(res => {
+    util.postPromise({ 'oid': wx.getStorageSync('oid'), 'userID': 64, 'aid': e.detail.value }, 'services/selectAddr', ).then(res => {
       console.log(res)
-      if(res.data.success){
-        wx.navigateTo({
-          url: '../pccOrder/index?guid=' + wx.getStorageSync('donateView') + '&oid=' + wx.getStorageSync('oid') + '&m=' + wx.getStorageSync('allMoney'),
+      if (res.success) {
+        var pages = getCurrentPages();
+        var prePage = pages[pages.length - 2];
+        prePage.setData({
+          receiveName: res.data.receivedName,
+          mobile: res.data.receivedMobile + "\n",
+          address: res.data.provinceName + res.data.cityName + res.data.districtName + res.data.area,
         })
-      }else{
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
         wx.showToast({
           title: res.data.message,
-          icon:'none'
+          icon: 'none'
         })
       }
     });
   },
+
+  deleteAddr: function (e) {
+    var aid = e.currentTarget.dataset.aid;
+    var index = e.currentTarget.dataset.index;
+    var that = this;
+    util.getPromise({ 'aid': aid }, 'services/deleteAddr').then(res => {
+      console.log(res)
+      if (res.data.success) {
+        var addressLists = that.data.addressLists;
+        addressLists.splice(index, 1);
+        that.setData({
+          addressLists: addressLists
+        })
+        wx.showToast({
+          title: '删除成功！',
+        })
+
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    });
+
+  }
 })

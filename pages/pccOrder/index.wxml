@@ -9,7 +9,7 @@
         <view class="weui-cell weui-cell_access">
           <view class="weui-cell__bd">
             <view style="display: inline-block; vertical-align: middle">
-              <text>收货人地址：{{ reciveName }}{{ mobile }}</text>
+              <text>收货人地址：{{ receiveName }}{{ mobile }}</text>
               <text>{{ address }}</text>
             </view>
           </view>
