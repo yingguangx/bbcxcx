@@ -9,6 +9,7 @@ Page({
   data: {
     userID:64,
     orderID: 0,
+    aid: 0,
     provinceID: 0,
     cityID: 0,
     distinctID: 0,
@@ -28,9 +29,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    this.setData({
-      orderID: options.oid
-    })
 
     util.postPromise({}, 'services/getProvince').then(res => {
       console.log(res)
@@ -38,6 +36,45 @@ Page({
         provinceList: res.data.provinceList
       })
     });
+
+    if(options.oid){
+      this.setData({
+        orderID: options.oid
+      })
+    }else{
+      this.setData({
+        aid:options.aid
+      })
+      util.getPromise({ 'aid': options.aid}, 'services/getAddr').then(res => {
+        console.log(res)
+        var provinceList = that.data.provinceList;
+        var cityList = that.data.cityList;
+        var distinctList = that.data.distinctList;
+        
+        provinceList[0] = { 'postID': res.data.provinceID, 'name': res.data.provinceName};
+        cityList[0] = { 'postID': res.data.cityID, 'name': res.data.cityName};
+        distinctList[0] = { 'postID': res.data.districtID, 'name': res.data.districtName };
+        var area = res.data.area;
+        var receiveName = res.data.receivedName;
+        var receiveMobile = res.data.receivedMobile;
+        console.log(area)
+        console.log(receiveName)
+        console.log(receiveMobile)        
+        that.setData({
+          provinceList: provinceList,
+          cityList: cityList,
+          distinctList: distinctList,
+          comment: area,
+          receiveName: receiveName,
+          receiveMobile: receiveMobile,
+          provinceID: res.data.provinceID,
+          cityID: res.data.cityID,
+          distinctID: res.data.districtID     
+        })
+        console.log(that.data)
+      });
+    }
+    
 
   },
 
@@ -166,19 +203,35 @@ Page({
   createAddr:function(){
     var that = this;
     if (this.validateComment()){
-      var json_data = {
-        userID: this.data.userID,
-        receivedName: this.data.receiveName,
-        receivedMobile: this.data.receiveMobile,
-        provinceID: this.data.provinceID,
-        cityID: this.data.cityID,
-        distinctID: this.data.distinctID,
-        comment:this.data.comment,
+      if(this.data.aid != 0){
+        var json_data = {
+          addressID:this.data.aid,
+          userID: this.data.userID,
+          receivedName: this.data.receiveName,
+          receivedMobile: this.data.receiveMobile,
+          provinceID: this.data.provinceID,
+          cityID: this.data.cityID,
+          distinctID: this.data.distinctID,
+          comment: this.data.comment,
+          oid: wx.getStorageSync('oid')
+        }
+      }else{
+        var json_data = {
+          userID: this.data.userID,
+          receivedName: this.data.receiveName,
+          receivedMobile: this.data.receiveMobile,
+          provinceID: this.data.provinceID,
+          cityID: this.data.cityID,
+          distinctID: this.data.distinctID,
+          comment: this.data.comment,
+          oid: wx.getStorageSync('oid')
+        }
       }
+      
       util.postPromise({json_data}, 'services/changeAddress').then(res => {
         if(res.success){
           wx.navigateTo({
-            url: '../addressList/index?oid=' + that.data.orderID,
+            url: '../pccOrder/index?guid=' + wx.getStorageSync('donateView') + '&oid=' + wx.getStorageSync('oid') + '&m=' + wx.getStorageSync('allMoney'),
           })
         }else{
           wx.showToast({

@@ -10,10 +10,10 @@ Page({
     orderID: 0,
     allMoney: 0,
     comment: '',
-    reciveName: '刘明明',
-    mobile: '18767622322'+'\n',
-    address: '河北省唐山市路北区路别面是什么我不知道啊啊啊啊啊',
-    orderDetail:{},
+    receiveName: '',
+    mobile: '',
+    address: '',
+    orderDetail: {},
   },
 
   /**
@@ -26,7 +26,7 @@ Page({
     wx.setStorageSync('oid', options.oid);
     wx.setStorageSync('allMoney', options.m);
     wx.setStorageSync('donateView', options.guid);
-    
+
     this.setData({
       donateView: options.guid,
       orderID: options.oid,
@@ -36,11 +36,11 @@ Page({
     util.postPromise({ 'guid': this.data.donateView, 'oid': this.data.orderID, 'allMoney': this.data.allMoney }, 'services/orderView').then(res => {
 
       console.log(res)
-      
+
       that.setData({
-        orderDetail:res.data,
+        orderDetail: res.data,
         reciveName: res.data.receiveName,
-        mobile: res.data.mobile+'\n',
+        mobile: res.data.mobile + '\n',
         address: res.data.address
       })
     });
@@ -101,5 +101,6 @@ Page({
     this.setData({
       comment: e.detail.value
     })
-  }
+  },
+
 })

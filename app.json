@@ -1,17 +1,17 @@
 {
   "pages":[
+    "pages/home/index",
+    "pages/addressList/index",
     "pages/create/index",
     "pages/view/index",
     "pages/mine/index",
     "pages/comment/index",
-    "pages/follow/index",
-    "pages/home/index",    
+    "pages/follow/index",  
     "pages/address/index",
     "pages/index/index",
     "pages/logs/logs",
     "pages/repay/index",
     "pages/pccOrder/index",
-    "pages/addressList/index",
     "pages/addaddress/index"
   ],
   "window":{
