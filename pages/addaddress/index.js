@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userID:64,
+    userID: 64,
     orderID: 0,
     aid: 0,
     provinceID: 0,
@@ -19,9 +19,9 @@ Page({
     cityIndex: 0,
     distinctList: [],
     distinctIndex: 0,
-    comment:'',
-    receiveName:'',
-    receiveMobile:'',
+    comment: '',
+    receiveName: '',
+    receiveMobile: '',
   },
 
   /**
@@ -37,29 +37,29 @@ Page({
       })
     });
 
-    if(options.oid){
+    if (options.oid) {
       this.setData({
         orderID: options.oid
       })
-    }else{
+    } else {
       this.setData({
-        aid:options.aid
+        aid: options.aid
       })
-      util.getPromise({ 'aid': options.aid}, 'services/getAddr').then(res => {
+      util.getPromise({ 'aid': options.aid }, 'services/getAddr').then(res => {
         console.log(res)
         var provinceList = that.data.provinceList;
         var cityList = that.data.cityList;
         var distinctList = that.data.distinctList;
-        
-        provinceList[0] = { 'postID': res.data.provinceID, 'name': res.data.provinceName};
-        cityList[0] = { 'postID': res.data.cityID, 'name': res.data.cityName};
+
+        provinceList[0] = { 'postID': res.data.provinceID, 'name': res.data.provinceName };
+        cityList[0] = { 'postID': res.data.cityID, 'name': res.data.cityName };
         distinctList[0] = { 'postID': res.data.districtID, 'name': res.data.districtName };
         var area = res.data.area;
         var receiveName = res.data.receivedName;
         var receiveMobile = res.data.receivedMobile;
         console.log(area)
         console.log(receiveName)
-        console.log(receiveMobile)        
+        console.log(receiveMobile)
         that.setData({
           provinceList: provinceList,
           cityList: cityList,
@@ -69,12 +69,12 @@ Page({
           receiveMobile: receiveMobile,
           provinceID: res.data.provinceID,
           cityID: res.data.cityID,
-          distinctID: res.data.districtID     
+          distinctID: res.data.districtID
         })
         console.log(that.data)
       });
     }
-    
+
 
   },
 
@@ -174,8 +174,8 @@ Page({
       distinctIndex: e.detail.value
     })
   },
-  
-  call:function(){
+
+  call: function () {
     app.call();
   },
 
@@ -186,7 +186,7 @@ Page({
     })
   },
 
-  addReviveName:function(e){
+  addReviveName: function (e) {
     console.log(e);
     this.setData({
       receiveName: e.detail.value
@@ -200,12 +200,12 @@ Page({
     })
   },
 
-  createAddr:function(){
+  createAddr: function () {
     var that = this;
-    if (this.validateComment()){
-      if(this.data.aid != 0){
+    if (this.validateComment()) {
+      if (this.data.aid != 0) {
         var json_data = {
-          addressID:this.data.aid,
+          addressID: this.data.aid,
           userID: this.data.userID,
           receivedName: this.data.receiveName,
           receivedMobile: this.data.receiveMobile,
@@ -215,7 +215,7 @@ Page({
           comment: this.data.comment,
           oid: wx.getStorageSync('oid')
         }
-      }else{
+      } else {
         var json_data = {
           userID: this.data.userID,
           receivedName: this.data.receiveName,
@@ -227,27 +227,34 @@ Page({
           oid: wx.getStorageSync('oid')
         }
       }
-      
-      util.postPromise({json_data}, 'services/changeAddress').then(res => {
-        if(res.success){
-          wx.navigateTo({
-            url: '../pccOrder/index?guid=' + wx.getStorageSync('donateView') + '&oid=' + wx.getStorageSync('oid') + '&m=' + wx.getStorageSync('allMoney'),
+
+      util.postPromise({ json_data }, 'services/changeAddress').then(res => {
+        if (res.success) {
+          var pages = getCurrentPages();
+          var prePage = pages[pages.length - 3];
+          prePage.setData({
+            receiveName: res.data.receivedName,
+            mobile: res.data.receivedMobile + "\n",
+            address: res.data.provinceName + res.data.cityName + res.data.districtName + res.data.area,
           })
-        }else{
+          wx.navigateBack({
+            delta: 2
+          })
+        } else {
           wx.showToast({
             title: res.message,
-            icon:'none'
+            icon: 'none'
           })
         }
       });
     }
   },
 
-  validateComment:function(){
+  validateComment: function () {
     if (this.data.provinceID == 0) {
       wx.showToast({
         title: '请选择省份！',
-        icon:'none',
+        icon: 'none',
       })
       return false;
     }
