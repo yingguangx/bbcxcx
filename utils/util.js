@@ -14,6 +14,54 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+function getPromise(data,url){
+  var data = data;
+  var url = url;
+  return new Promise((resolve, reject) => {
+    var that = this;
+    wx.request({
+      url: 'http://ztbapi/' + url,
+      data: data,
+      dataType: 'json',
+      success: function (res) {
+        resolve(res.data.data)
+      },
+      fail: function () {
+        wx.showToast({
+          title: '网络连接失败！',
+        });
+      }
+    })
+  });
+}
+
+function postPromise(data, url) {
+  var data = data;
+  var url = url;
+  return new Promise((resolve, reject) => {
+    var that = this;
+    wx.request({
+      url: 'http://ztbapi/' + url,
+      data: data,
+      dataType: 'json',
+      header: {
+              'content-type': 'application/json'
+              },
+      method:'POST',
+      success: function (res) {
+        resolve(res.data.data)
+      },
+      fail: function () {
+        wx.showToast({
+          title: '网络连接失败！',
+        });
+      }
+    })
+  });
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  getPromise: getPromise,
+  postPromise: postPromise,
 }

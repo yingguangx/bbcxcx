@@ -1,8 +1,18 @@
 {
   "pages":[
     "pages/home/index",
+    "pages/addressList/index",
+    "pages/create/index",
+    "pages/view/index",
+    "pages/mine/index",
+    "pages/comment/index",
+    "pages/follow/index",  
+    "pages/address/index",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/repay/index",
+    "pages/pccOrder/index",
+    "pages/addaddress/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -29,7 +39,7 @@
         "text": "发起"
       },
       {
-        "pagePath": "pages/home/index",
+        "pagePath": "pages/mine/index",
         "iconPath": "/static/images/bbc2-wxpay.png",
         "selectedIconPath": "/static/images/bbc2-wxpay.png",
         "text": "我的"
