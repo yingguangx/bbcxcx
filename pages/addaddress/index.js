@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userID: 64,
     orderID: 0,
     aid: 0,
     provinceID: 0,
@@ -206,7 +205,7 @@ Page({
       if (this.data.aid != 0) {
         var json_data = {
           addressID: this.data.aid,
-          userID: this.data.userID,
+          userID: wx.getStorageSync('userID'),
           receivedName: this.data.receiveName,
           receivedMobile: this.data.receiveMobile,
           provinceID: this.data.provinceID,
@@ -217,7 +216,7 @@ Page({
         }
       } else {
         var json_data = {
-          userID: this.data.userID,
+          userID: wx.getStorageSync('userID'),
           receivedName: this.data.receiveName,
           receivedMobile: this.data.receiveMobile,
           provinceID: this.data.provinceID,

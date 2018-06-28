@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    headImgUrl:'http://weixingongchang.oss-cn-hangzhou.aliyuncs.com/bbc/1501728126-3382788514.JPG'
+    userInfo:{}
   },
   //事件处理函数
   bindViewTap: function() {

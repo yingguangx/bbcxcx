@@ -122,7 +122,7 @@ Page({
   follow:function(){
     var postData = {
       'guid': this.data.donateView,
-      'userID':64
+      'userID':wx.getStorageSync('userID')
     }
     var that = this;
     var followN = that.data.followNum

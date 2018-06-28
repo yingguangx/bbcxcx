@@ -175,7 +175,7 @@ Page({
       })
       return false;
     }
-    util.postPromise({ 'guid': this.data.donateView,'repays':this.data.repays,'allMoney':this.data.allMoney }, 'services/createPccOrders').then(res => {
+    util.postPromise({ 'guid': this.data.donateView,'repays':this.data.repays,'allMoney':this.data.allMoney,'userID':wx.getStorageSync('userID') }, 'services/createPccOrders').then(res => {
     
       console.log(res)
       if (res.success){
