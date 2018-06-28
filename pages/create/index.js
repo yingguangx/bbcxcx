@@ -52,7 +52,7 @@ Page({
         }
       })
     }
-    util.getPromise({},'services/getMinePcc').then(res=>{
+    util.getPromise({'userID':wx.getStorageSync('userID')},'services/getMinePcc').then(res=>{
       that.setData({
         minePcc:res
       })

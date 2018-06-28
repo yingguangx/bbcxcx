@@ -19,7 +19,7 @@ Page({
       orderID: options.oid
     })
     var that = this;
-    util.postPromise({ 'oid': this.data.orderID, 'userID': 64 }, 'services/addressList').then(res => {
+    util.postPromise({ 'oid': this.data.orderID, 'userID': wx.getStorageSync('userID') }, 'services/addressList').then(res => {
       console.log(res)
       that.setData({
         addressLists: res.data.addressLists
@@ -89,7 +89,7 @@ Page({
     });
 
     var that = this;
-    util.postPromise({ 'oid': wx.getStorageSync('oid'), 'userID': 64, 'aid': e.detail.value }, 'services/selectAddr', ).then(res => {
+    util.postPromise({ 'oid': wx.getStorageSync('oid'), 'userID': wx.getStorageSync('userID'), 'aid': e.detail.value }, 'services/selectAddr', ).then(res => {
       console.log(res)
       if (res.success) {
         var pages = getCurrentPages();
