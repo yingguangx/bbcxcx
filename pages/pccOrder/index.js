@@ -146,10 +146,34 @@ Page({
                 'signType': res.data.signType,
                 'paySign': res.data.paySign,
                 'success': function (res) {
-
+                  wx.showToast({
+                    title: '支付成功！',
+                    icon: 'none',
+                    success: function () {
+                      // wx.removeStorageSync('oid');
+                      // wx.removeStorageSync('allMoney');
+                      // setTimeout(function () {
+                      //   wx.redirectTo({
+                      //     url: '../view/index?donateView=' + wx.getStorageSync('donateView'),
+                      //   })
+                      // }, 1500);
+                    }
+                  })
                 },
                 'fail': function (res) {
-
+                  wx.showToast({
+                    title: '取消支付，请重新下单！',
+                    icon: 'none',
+                    success: function () {
+                      wx.removeStorageSync('oid');
+                      wx.removeStorageSync('allMoney');
+                      setTimeout(function () {
+                        wx.redirectTo({
+                          url: '../view/index?donateView=' + wx.getStorageSync('donateView'),
+                        })
+                      }, 1500);
+                    }
+                  })
                 }
               })
 
