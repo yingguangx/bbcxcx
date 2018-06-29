@@ -75,7 +75,7 @@
 }
 
 .mask {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -86,7 +86,7 @@
 
 .modals-contain {
   width: 90%;
-  position: absolute;
+  position: fixed;
   top: 30%;
   z-index: 2001;
   margin:0 5%;
