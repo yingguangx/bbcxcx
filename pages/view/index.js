@@ -22,7 +22,7 @@ Page({
     active:'view-condition-content',
     followSrc:'/static/images/follow2.png',
     followNum:0,
-    transferNum:0
+    transferNum:0,
   },
 
   /**
@@ -37,7 +37,7 @@ Page({
       donateView: options.donateView
     })
 
-    util.postPromise({ 'guid': this.data.donateView}, 'services/getPccView').then(res => {
+    util.postPromise({ 'guid': this.data.donateView ,'userID':wx.getStorageSync('userID')}, 'services/getPccView').then(res => {
       that.setData({
         pccInfo: res,
         followNum: res.data.followNum,
