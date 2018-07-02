@@ -17,6 +17,7 @@ Page({
     loading: false,
     pageNum: 1,
     mask: false,
+    noPcc:false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -89,7 +90,7 @@ Page({
   lower: function(e) {
     var hls = this.data.hotList
     var that = this
-    if (that.data.loading == false && that.data.pageNum < 3) {
+    if (that.data.loading == false && that.data.noPcc == false) {
       wx.showNavigationBarLoading()
       that.setData({
         loading: true
@@ -110,7 +111,8 @@ Page({
           that.setData({
             hotList: newHot,
             loading: false,
-            pageNum: that.data.pageNum + 1
+            pageNum: that.data.pageNum + 1,
+            noPcc:res.data.data.noPcc
           })
         }
       })

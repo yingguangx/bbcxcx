@@ -1,3 +1,7 @@
+var util = require('../../utils/util.js')
+//index.js
+//获取应用实例
+const app = getApp()
 // pages/follow/index.js
 Page({
 
@@ -5,14 +9,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    minePcc:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    util.getPromise({ 'userID': wx.getStorageSync('userID') }, 'services/followPcc').then(res => {
+      that.setData({
+        minePcc: res
+      })
+    })
   },
 
   /**

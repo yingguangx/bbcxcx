@@ -9,14 +9,6 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '/static/images/bbc2-donate-rule.png',
-      '/static/images/bbc2-get-recommend.png',
-      '/static/images/bbc2-r-logo.png',
-      '/static/images/bbc2-redpacket-ts.png'
-    ],
-    loading:false,
-    pageNum:1
   },
   //事件处理函数
   bindViewTap: function() {
@@ -58,36 +50,6 @@ Page({
       })
     })
   },
-  // lower: function (e) {
-  //   var hls = this.data.hotList
-  //   var that = this
-  //   if (that.data.loading == false && that.data.pageNum < 3){
-  //     wx.showNavigationBarLoading() 
-  //     that.setData({
-  //       loading:true
-  //     })
-  //     wx.request({
-  //       url: 'http://ztbapi/services/getHotLists',
-  //       data:{
-  //         pageNum:that.data.pageNum
-  //       },
-  //       // method:'POST',
-  //       dataType:'json',
-  //       success:function(res){
-  //         var newHot = {
-  //           success:"true",
-  //           data: hls.data.concat(res.data.data.data)
-  //         }
-  //         wx.hideNavigationBarLoading()
-  //         that.setData({
-  //           hotList: newHot,
-  //           loading:false,
-  //           pageNum: that.data.pageNum+1
-  //         })
-  //       }
-  //     })
-  //   }
-  // },
   imageError: function (e) {
     var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
     var imgObject = "hotList.data[" + errorImgIndex + "].imageUrl" //carlistData为数据源，对象数组
