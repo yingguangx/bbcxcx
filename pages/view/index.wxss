@@ -45,11 +45,13 @@
   margin: 20rpx;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .view-user-daily {
   display: flex;
   flex-direction: column;
+  padding-left: 20rpx;
 }
 
 .view-user-headimg {

@@ -53,4 +53,7 @@ Page({
   call: function () {
     app.call()
   },
+  onShow:function(){
+    app.checkAuth();
+  }
 })
