@@ -21,9 +21,11 @@
             <text class="view-user-nick">{{ pcc.nickName }}</text>
             <image lazy-load class="view-pcc-tag" src="http://static.weixingongchang.com/img/pcc/pcc-tuijian.png" binderror='imageError' data-errorimg="{{index}}" mode='aspectFit'></image>
           </view>
-          <view class="view-pcc">
-            <image lazy-load class="view-pcc-mainimg" src="http://osscdn.zhongtuobang.com/pcc/{{ pcc.mainImg }}!thumbpcc"></image>
-          </view>
+          <navigator url="../view/index?donateView={{ pcc.guid }}">
+            <view class="view-pcc">
+              <image lazy-load class="view-pcc-mainimg" src="http://osscdn.zhongtuobang.com/pcc/{{ pcc.mainImg }}!thumbpcc"></image>
+            </view>
+          </navigator>
           <view class="view-pcc-des">
             <text>{{ pcc.condition }}</text>
           </view>
@@ -46,12 +48,15 @@
     微信授权
   </view>
   <view class="checkAuthContent">
-    帮帮爱心筹申请获取公开信息
-    (拒绝授权则无法使用帮帮爱心筹支持项目)
+    帮帮爱心筹申请获取公开信息 (拒绝授权则无法使用帮帮爱心筹支持项目)
   </view>
   <view style="display:flex;">
-    <view class="checkAuthButton" bindtap='hideMask'><button style="background: #fff;">拒绝</button></view>
-    <view class="checkAuthButton" bindtap='hideMask' style="color: #35A0FB;border:none"><button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="background: #fff;color: #35A0FB">允许</button></view>
+    <view class="checkAuthButton" bindtap='hideMask'>
+      <button style="background: #fff;">拒绝</button>
+    </view>
+    <view class="checkAuthButton" bindtap='hideMask' style="color: #35A0FB;border:none">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="background: #fff;color: #35A0FB">允许</button>
+    </view>
   </view>
 </view>
 <view class="mask" wx:if="{{ mask }}"></view>

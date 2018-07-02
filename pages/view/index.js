@@ -8,12 +8,7 @@ Page({
    */
   data: {
     donateView:'',
-    imgUrls: [
-      '/static/images/bbc2-donate-rule.png',
-      '/static/images/bbc2-get-recommend.png',
-      '/static/images/bbc2-r-logo.png',
-      '/static/images/bbc2-redpacket-ts.png'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -22,22 +17,27 @@ Page({
     active:'view-condition-content',
     followSrc:'/static/images/follow2.png',
     followNum:0,
-    transferNum:0
+    transferNum:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.checkAuth();
+
     var that = this;
+
     this.setData({
       donateView: options.donateView
     })
 
-    util.postPromise({ 'guid': this.data.donateView}, 'services/getPccView').then(res => {
+    util.postPromise({ 'guid': this.data.donateView ,'userID':wx.getStorageSync('userID')}, 'services/getPccView').then(res => {
+      res.data.condition = res.data.condition.replace(/\<img/gi, '<img style="width:100%;height:auto" ');
       that.setData({
         pccInfo: res,
         followNum: res.data.followNum,
+        imgUrls: res.data.imgUrls
       })
       if (res.data.followStatus){
         that.setData({

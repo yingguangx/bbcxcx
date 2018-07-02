@@ -23,6 +23,9 @@ function getPromise(data,url){
       url: 'http://ztbapi/' + url,
       data: data,
       dataType: 'json',
+      header: {
+        'HTTP_X_REST_TOKEN': 'ztb'
+      },
       success: function (res) {
         resolve(res.data.data)
       },
@@ -45,7 +48,8 @@ function postPromise(data, url) {
       data: data,
       dataType: 'json',
       header: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
+              'HTTP_X_REST_TOKEN':'ztb'
               },
       method:'POST',
       success: function (res) {

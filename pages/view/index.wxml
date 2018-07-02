@@ -124,7 +124,7 @@
     </view>
   </view>
 </view>
-<view class='view-dnate-button'>
+<view class='view-dnate-button' wx:if="{{ pccInfo.data.noMine }}">
   <view bindtap='follow' style='width:20%'>
     <image src='{{ followSrc }}' style='width:48rpx;height:48rpx;'></image>
     <view style='font-size:20rpx;'>

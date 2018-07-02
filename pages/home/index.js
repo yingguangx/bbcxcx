@@ -5,7 +5,7 @@ const app = getApp()
 
 Page({
   data: {
-    hotList:[],
+    hotList: [],
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -19,9 +19,9 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
-    loading:false,
-    pageNum:1,
-    mask:false,
+    loading: false,
+    pageNum: 1,
+    mask: false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -29,43 +29,15 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     var that = this;
-
-    wx.getSetting({
-      success: res => {
-        console.log(res)
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              console.log(res);
-              // 可以将 res 发送给后台解码出 unionId
-              app.globalData.userInfo = res.userInfo;
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (app.userInfoReadyCallback) {
-                app.userInfoReadyCallback(res)
-              }
-            }
-          })
-        } else {
-          that.setData({
-            mask:true,
-          })
-        }
-      }
-    })
-
-
-
 
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -86,80 +58,107 @@ Page({
         }
       })
     }
-    util.getPromise({},'services/getHotLists').then(res=>{
+    util.getPromise({}, 'services/getHotLists').then(res => {
       that.setData({
-        hotList:res
+        hotList: res
       })
     })
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  changeIndicatorDots: function (e) {
+
+  changeIndicatorDots: function(e) {
     this.setData({
       indicatorDots: !this.data.indicatorDots
     })
   },
-  changeAutoplay: function (e) {
+  changeAutoplay: function(e) {
     this.setData({
       autoplay: !this.data.autoplay
     })
   },
-  intervalChange: function (e) {
+  intervalChange: function(e) {
     this.setData({
       interval: e.detail.value
     })
   },
-  durationChange: function (e) {
+  durationChange: function(e) {
     this.setData({
       duration: e.detail.value
     })
   },
-  lower: function (e) {
+  lower: function(e) {
     var hls = this.data.hotList
     var that = this
-    if (that.data.loading == false && that.data.pageNum < 3){
-      wx.showNavigationBarLoading() 
+    if (that.data.loading == false && that.data.pageNum < 3) {
+      wx.showNavigationBarLoading()
       that.setData({
-        loading:true
+        loading: true
       })
       wx.request({
         url: 'http://ztbapi/services/getHotLists',
-        data:{
-          pageNum:that.data.pageNum
+        data: {
+          pageNum: that.data.pageNum
         },
         // method:'POST',
-        dataType:'json',
-        success:function(res){
+        dataType: 'json',
+        success: function(res) {
           var newHot = {
-            success:"true",
+            success: "true",
             data: hls.data.concat(res.data.data.data)
           }
           wx.hideNavigationBarLoading()
           that.setData({
             hotList: newHot,
-            loading:false,
-            pageNum: that.data.pageNum+1
+            loading: false,
+            pageNum: that.data.pageNum + 1
           })
         }
       })
     }
   },
-  imageError: function (e) {
+  imageError: function(e) {
     var errorImgIndex = e.target.dataset.errorimg //获取循环的下标
     var imgObject = "hotList.data[" + errorImgIndex + "].imageUrl" //carlistData为数据源，对象数组
     var errorImg = {}
     errorImg[imgObject] = "https://staticcdn2.zhongtuobang.com/img/error_empImag_60x80.gif" //我们构建一个对象
     this.setData(errorImg) //修改数据源对应的数据
   },
-  hideMask:function(){
+  hideMask: function() {
     this.setData({
-      mask:false,
+      mask: false,
     })
   },
+  onShow: function() {
+    var that = this;
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              app.globalData.userInfo = res.userInfo;
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (app.userInfoReadyCallback) {
+                app.userInfoReadyCallback(res)
+              }
+            }
+          })
+        } else {
+          that.setData({
+            mask: true,
+          })
+        }
+      }
+    })
+  },
+  onGotUserInfo: function(e) {
+    //更新用户信息
+    util.postPromise({
+      'userID': wx.getStorageSync('userID'),
+      'userInfo': e.detail.userInfo
+    }, 'services/updateWxUserInfo').then(res => {
+      console.log(res)
+    })
+  }
 })
