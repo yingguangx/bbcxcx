@@ -55,5 +55,8 @@ Page({
   },
   onShow:function(){
     app.checkAuth();
+  },
+  tobecontinued:function(){
+    app.tobecontinued();
   }
 })

@@ -157,6 +157,7 @@
 
 .view-condition-content {
   display: none;
+  padding: 10rpx 15rpx 40rpx 20rpx;
 }
 
 .view-condition-daily {
