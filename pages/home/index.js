@@ -9,12 +9,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '/static/images/bbc2-donate-rule.png',
-      '/static/images/bbc2-get-recommend.png',
-      '/static/images/bbc2-r-logo.png',
-      '/static/images/bbc2-redpacket-ts.png'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -61,6 +56,12 @@ Page({
     util.getPromise({}, 'services/getHotLists').then(res => {
       that.setData({
         hotList: res
+      })
+    })
+    util.getPromise({}, 'services/banner').then(res => {
+      console.log(res)
+      that.setData({
+        imgUrls: res.data
       })
     })
   },
