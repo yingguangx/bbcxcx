@@ -94,7 +94,7 @@ Page({
         loading: true
       })
       wx.request({
-        url: 'https://api.weixingongchang.com/services/getHotLists',
+        url: 'http://ztbapi/services/getHotLists',
         data: {
           pageNum: that.data.pageNum
         },

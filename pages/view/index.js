@@ -8,12 +8,7 @@ Page({
    */
   data: {
     donateView:'',
-    imgUrls: [
-      '/static/images/bbc2-donate-rule.png',
-      '/static/images/bbc2-get-recommend.png',
-      '/static/images/bbc2-r-logo.png',
-      '/static/images/bbc2-redpacket-ts.png'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -38,9 +33,11 @@ Page({
     })
 
     util.postPromise({ 'guid': this.data.donateView ,'userID':wx.getStorageSync('userID')}, 'services/getPccView').then(res => {
+      res.data.condition = res.data.condition.replace(/\<img/gi, '<img style="width:100%;height:auto" ');
       that.setData({
         pccInfo: res,
         followNum: res.data.followNum,
+        imgUrls: res.data.imgUrls
       })
       if (res.data.followStatus){
         that.setData({
