@@ -115,25 +115,34 @@ Page({
     var aid = e.currentTarget.dataset.aid;
     var index = e.currentTarget.dataset.index;
     var that = this;
-    util.getPromise({ 'aid': aid }, 'services/deleteAddr').then(res => {
-      console.log(res)
-      if (res.data.success) {
-        var addressLists = that.data.addressLists;
-        addressLists.splice(index, 1);
-        that.setData({
-          addressLists: addressLists
-        })
-        wx.showToast({
-          title: '删除成功！',
-        })
+    wx.showModal({
+      title: '提示',
+      content: '确定删除该地址?',
+      success: function (res) {
+        if (res.confirm) {
+          util.getPromise({ 'aid': aid }, 'services/deleteAddr').then(res => {
+            console.log(res)
+            if (res.data.success) {
+              var addressLists = that.data.addressLists;
+              addressLists.splice(index, 1);
+              that.setData({
+                addressLists: addressLists
+              })
+              wx.showToast({
+                title: '删除成功！',
+              })
 
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          });
+        } else if (res.cancel) {
+          
+        }
       }
-    });
-
+    })
   }
 })
