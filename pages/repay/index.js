@@ -17,13 +17,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     this.setData({
       donateView: options.donateView
     });
 
-    util.postPromise({ 'guid': this.data.donateView }, 'services/getPccRepays').then(res => {
+    util.postPromise({
+      'guid': this.data.donateView
+    }, 'services/getPccRepays').then(res => {
       that.setData({
         repays: res.data.pccRepays
       })
@@ -34,57 +36,58 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
-  checkboxChange1: function (e) {
+  checkboxChange1: function(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
     var that = this;
     var allMoney = 0;
-    var checkboxItems = this.data.repays, values = e.detail.value;
+    var checkboxItems = this.data.repays,
+      values = e.detail.value;
     for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
       checkboxItems[i].checked = false;
       checkboxItems[i].show = false;
@@ -113,7 +116,7 @@ Page({
     console.log(this.data.repays)
   },
 
-  maskShow: function () {
+  maskShow: function() {
     var maskStatus = this.data.mask;
     if (maskStatus) {
       this.setData({
@@ -129,7 +132,7 @@ Page({
 
   },
 
-  deleteNumber: function (e) {
+  deleteNumber: function(e) {
     var repays = this.data.repays;
     var index = e.currentTarget.dataset.index;
     var allMoney = this.data.allMoney;
@@ -142,8 +145,8 @@ Page({
       })
     } else {
       repays[index].donateNum = parseInt(repays[index].donateNum) - 1;
-      repays[index].donateMoney = parseInt(repays[index].donateNum) * parseFloat(repays[index].money)
-      allMoney = parseFloat(allMoney) - parseFloat(repays[index].money)
+      repays[index].donateMoney = (parseInt(repays[index].donateNum) * parseInt(repays[index].money * 10)) / 10;
+      allMoney = (parseInt(allMoney * 10) - parseInt(repays[index].money * 10)) / 10;
       this.setData({
         repays: repays,
         allMoney: allMoney
@@ -151,15 +154,15 @@ Page({
     }
   },
 
-  addNumber: function (e) {
+  addNumber: function(e) {
     var repays = this.data.repays;
     var index = e.currentTarget.dataset.index;
     var allMoney = this.data.allMoney;
     console.log(repays)
     console.log(e.currentTarget.dataset.index)
     repays[index].donateNum = parseInt(repays[index].donateNum) + 1;
-    repays[index].donateMoney = parseInt(repays[index].donateNum) * parseFloat(repays[index].money)
-    allMoney = parseFloat(allMoney) + parseFloat(repays[index].money)
+    repays[index].donateMoney = (parseInt(repays[index].donateNum) * parseInt(repays[index].money * 10)) / 10;
+    allMoney = (parseInt(allMoney * 10) + parseInt(repays[index].money * 10)) / 10;
     this.setData({
       repays: repays,
       allMoney: allMoney
@@ -167,25 +170,30 @@ Page({
 
   },
 
-  createOrder:function(){
-    if(this.data.allMoney == 0){
+  createOrder: function() {
+    if (this.data.allMoney == 0) {
       wx.showToast({
         title: '请选择回报后支持！',
-        icon:'none'
+        icon: 'none'
       })
       return false;
     }
-    util.postPromise({ 'guid': this.data.donateView,'repays':this.data.repays,'allMoney':this.data.allMoney,'userID':wx.getStorageSync('userID') }, 'services/createPccOrders').then(res => {
-    
+    util.postPromise({
+      'guid': this.data.donateView,
+      'repays': this.data.repays,
+      'allMoney': this.data.allMoney,
+      'userID': wx.getStorageSync('userID')
+    }, 'services/createPccOrders').then(res => {
+
       console.log(res)
-      if (res.success){
+      if (res.success) {
         wx.navigateTo({
-          url: '../pccOrder/index'+res.data,
+          url: '../pccOrder/index' + res.data,
         })
-      }else{
+      } else {
         wx.showToast({
           title: res.message,
-          icon:'none'
+          icon: 'none'
         })
       }
     });
