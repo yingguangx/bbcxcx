@@ -114,21 +114,21 @@ Page({
         'oid': this.data.orderID,
         'allMoney': this.data.allMoney,
         'userID': wx.getStorageSync('userID'),
-        'comment': this.data.comment
+        'comment':this.data.comment
       }, 'services/apiCreateComment').then(res => {
         console.log(res)
-        if (res.success) {
+        if(res.success){
           util.postPromise({
             'orderNo': res.data.orderNo,
             'allMoney': res.data.money,
-            'openid': wx.getStorageSync('openid')
+            'openid':wx.getStorageSync('openid')
           }, 'services/getJsApiForWxXcxPayment').then(res => {
-            var payJson = JSON.parse(res.data);
+            console.log(res)
             if (res === undefined) {
               wx.showToast({
                 title: '支付失败，请稍后再试！',
                 icon: 'none',
-                success: function() {
+                success: function () {
                   wx.removeStorageSync('oid');
                   wx.removeStorageSync('allMoney');
                   // setTimeout(function(){
@@ -138,33 +138,33 @@ Page({
                   // },1500);
                 }
               })
-            } else {
+            }else{
               wx.requestPayment({
-                'timeStamp': payJson.timeStamp,
-                'nonceStr': payJson.nonceStr,
-                'package': payJson.package,
-                'signType': payJson.signType,
-                'paySign': payJson.paySign,
-                'success': function(res) {
+                'timeStamp': res.data.timeStamp,
+                'nonceStr': res.data.nonceStr,
+                'package': res.data.package,
+                'signType': res.data.signType,
+                'paySign': res.data.paySign,
+                'success': function (res) {
                   wx.showToast({
                     title: '支付成功！',
                     icon: 'none',
-                    success: function() {
-                      wx.removeStorageSync('oid');
-                      wx.removeStorageSync('allMoney');
-                      setTimeout(function () {
-                        wx.redirectTo({
-                          url: '../view/index?donateView=' + wx.getStorageSync('donateView'),
+                    success: function () {
+                      // wx.removeStorageSync('oid');
+                      // wx.removeStorageSync('allMoney');
+                       setTimeout(function () {
+                         wx.redirectTo({
+                           url: '../donateSuccess/index?donateView=' + wx.getStorageSync('donateView'),
                         })
-                      }, 1500);
+                       }, 1500);
                     }
                   })
                 },
-                'fail': function(res) {
+                'fail': function (res) {
                   wx.showToast({
                     title: '取消支付，请重新下单！',
                     icon: 'none',
-                    success: function() {
+                    success: function () {
                       wx.removeStorageSync('oid');
                       wx.removeStorageSync('allMoney');
                       setTimeout(function () {
