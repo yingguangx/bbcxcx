@@ -152,11 +152,11 @@ Page({
                     success: function () {
                       // wx.removeStorageSync('oid');
                       // wx.removeStorageSync('allMoney');
-                      // setTimeout(function () {
-                      //   wx.redirectTo({
-                      //     url: '../view/index?donateView=' + wx.getStorageSync('donateView'),
-                      //   })
-                      // }, 1500);
+                       setTimeout(function () {
+                         wx.redirectTo({
+                           url: '../donateSuccess/index?donateView=' + wx.getStorageSync('donateView'),
+                        })
+                       }, 1500);
                     }
                   })
                 },

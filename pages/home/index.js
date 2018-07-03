@@ -9,12 +9,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '/static/images/bbc2-donate-rule.png',
-      '/static/images/bbc2-get-recommend.png',
-      '/static/images/bbc2-r-logo.png',
-      '/static/images/bbc2-redpacket-ts.png'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -22,6 +17,7 @@ Page({
     loading: false,
     pageNum: 1,
     mask: false,
+    noPcc:false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -63,6 +59,12 @@ Page({
         hotList: res
       })
     })
+    util.getPromise({}, 'services/banner').then(res => {
+      console.log(res)
+      that.setData({
+        imgUrls: res.data
+      })
+    })
   },
 
   changeIndicatorDots: function(e) {
@@ -88,7 +90,7 @@ Page({
   lower: function(e) {
     var hls = this.data.hotList
     var that = this
-    if (that.data.loading == false && that.data.pageNum < 3) {
+    if (that.data.loading == false && that.data.noPcc == false) {
       wx.showNavigationBarLoading()
       that.setData({
         loading: true
@@ -109,7 +111,8 @@ Page({
           that.setData({
             hotList: newHot,
             loading: false,
-            pageNum: that.data.pageNum + 1
+            pageNum: that.data.pageNum + 1,
+            noPcc:res.data.data.noPcc
           })
         }
       })

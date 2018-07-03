@@ -45,11 +45,13 @@
   margin: 20rpx;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .view-user-daily {
   display: flex;
   flex-direction: column;
+  padding-left: 20rpx;
 }
 
 .view-user-headimg {
@@ -106,25 +108,29 @@
 .view-pcc {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin: 20rpx 0;
 }
 
 .view-pcc-mainimg {
   width: 75px;
   height: 75px;
   padding-left: 20rpx;
-  vertical-align: center;
+  display: block;
 }
 
 .view-pcc-title {
-  margin: 20rpx;
+  margin: 0 20rpx;
   font-size: 16px;
   font-weight: 700;
 }
 
 .view-pcc-time {
-  margin: 20rpx;
+  margin: 0 20rpx;
   color: rgb(169, 169, 169);
   font-size: 14px;
+  height: 40px;
+  overflow: hidden;
 }
 
 .view-tabs {
@@ -155,6 +161,7 @@
 
 .view-condition-content {
   display: none;
+  padding: 10rpx 15rpx 40rpx 20rpx;
 }
 
 .view-condition-daily {
@@ -185,6 +192,7 @@
   text-align: center;
   height: 50px;
 }
-.view-tabs-content{
+
+.view-tabs-content {
   margin-bottom: 120rpx;
 }

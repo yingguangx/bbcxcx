@@ -19,13 +19,13 @@
     <navigator url="../create/index">
       <image src='/static/images/pcc-userinfo-mine.png' style='width:100%;height:60px;'></image>
     </navigator>
-    <navigator url="../donateSuccess/index">
-      <image src='/static/images/pcc-userinfo-comment.png' style='width:100%;height:60px;'></image>
+    <navigator>
+      <image src='/static/images/pcc-userinfo-comment.png' style='width:100%;height:60px;' bindtap='tobecontinued'></image>
     </navigator>
     <navigator url='../follow/index'>
       <image src='/static/images/pcc-userinfo-follow.png' style='width:100%;height:60px;'></image>
     </navigator>
-    <navigator url='../address/index'>
+    <navigator url='../addressList/index'>
       <image src='/static/images/pcc-userinfo-addr.png' style='width:100%;height:60px;'></image>
     </navigator>
     <view class="call-view">
