@@ -21,7 +21,8 @@ Page({
         key: 'donateView'
       })
     })
-    util.getPromise({}, 'services/getDonateSuccessLists').then(res => {
+    util.getPromise({'oid': wx.getStorageSync('oid'), 'userID': wx.getStorageSync('userID')}, 'services/getDonateSuccessLists').then(res => {
+      wx.removeStorageSync('oid');
       that.setData({
         hotPcc: res
       })
