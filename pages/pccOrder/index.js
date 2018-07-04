@@ -151,7 +151,7 @@ Page({
                     icon: 'none',
                     success: function () {
                       // wx.removeStorageSync('oid');
-                      // wx.removeStorageSync('allMoney');
+                       wx.removeStorageSync('allMoney');
                        setTimeout(function () {
                          wx.redirectTo({
                            url: '../donateSuccess/index?donateView=' + wx.getStorageSync('donateView'),
