@@ -19,7 +19,7 @@
     <navigator url="../create/index">
       <image src='/static/images/pcc-userinfo-mine.png' style='width:100%;height:60px;'></image>
     </navigator>
-    <navigator>
+    <navigator url="../comment/index">
       <image src='/static/images/pcc-userinfo-comment.png' style='width:100%;height:60px;' bindtap='tobecontinued'></image>
     </navigator>
     <navigator url='../follow/index'>
