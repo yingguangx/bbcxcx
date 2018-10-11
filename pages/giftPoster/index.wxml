@@ -1,0 +1,6 @@
+<!--index.wxml-->
+  <view class="section">
+    <image style="width:100%; height: 94%;" src="{{imgSrc}}"></image>
+     <view class='cancelPoster' bindtap="actionSaveImg">保存到相册</view>
+  </view>
+

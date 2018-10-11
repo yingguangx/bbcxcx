@@ -1,5 +1,0 @@
-<!--pages/comment/index.wxml-->
-<text>pages/comment/index.wxml</text>
-<navigator url="../donateSuccess/index">
-      <view>点我</view>
-    </navigator>
