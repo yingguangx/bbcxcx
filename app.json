@@ -1,44 +1,36 @@
 {
   "pages":[
-    "pages/home/index",
-    "pages/addressList/index",
-    "pages/create/index",
-    "pages/view/index",
-    "pages/mine/index",
-    "pages/comment/index",
-    "pages/follow/index",  
-    "pages/address/index",
+    "pages/giftHome/index",
+    "pages/giftPoster/index",
+    "pages/giftList/index",
+    "pages/giftUserinfo/index",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/repay/index",
-    "pages/pccOrder/index",
-    "pages/addaddress/index",
-    "pages/donateSuccess/index"
+    "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#F7553E",
+    "navigationBarTitleText": "助农大使",
+    "navigationBarTextStyle":"white"
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#49A1FD",
-    "borderStyle": "white",
+    "color": "#C1C0C9",
+    "selectedColor": "#262626",
+    "borderStyle": "#979797",
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/home/index",
-        "iconPath": "/static/images/pcc-home.png",
-        "selectedIconPath": "/static/images/pcc-home-c.png",
-        "text": "首页"
+        "pagePath": "pages/giftHome/index",
+        "iconPath": "/static/images/pcc-renwu.png",
+        "selectedIconPath": "/static/images/pcc-renwu-c.png",
+        "text": "任务"
       },
       {
-        "pagePath": "pages/mine/index",
+        "pagePath": "pages/giftUserinfo/index",
         "iconPath": "/static/images/pcc-mine.png",
-        "selectedIconPath": "/static/images/pcc-mine-c.png",
+        "selectedIconPath": "/static/images/pcc-renwumine-c.png",
         "text": "我的"
       }
-    ]
-  }
-}
+      ]
+     }
+    }

@@ -1,0 +1,124 @@
+  <view class="section">
+  <view class='gift-top'>
+    <view class='top-frist'>我赚取总收益</view>
+    <view class='top-second'>￥{{giftAmt}}</view>
+    <view class="top-third" bindtap="actionGetGift">
+        <view><image style="width: 32rpx; height: 39rpx;margin:10rpx 20rpx 0 0" src="/static/images/pcc-red-package.png"></image></view>
+        <view style='margin-top:5rpx' wx:if="{{giftNumber>0}}">您有{{giftNumber}}个红包未领取</view>
+        <view style='margin-top:5rpx' wx:if="{{giftNumber==0}}">开红包</view>
+    </view>
+  </view>
+
+  <view class='gift-center'>
+    <swiper indicator-dots="{{indicatorDots}}" next-margin="260rpx" circular='true' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+
+     <block wx:for="{{openLists}}">
+      <swiper-item>
+        <view class="center-content">
+           <view style='margin:10rpx 15rpx 0 5rpx'><image style="width:48rpx; height: 48rpx;border-radius: 48rpx;" src="{{item.headImgUrl}}"></image></view>
+           <view>{{item.nickname}} 刚拆了一个</view>
+           <view style='color:#F7553E'>¥  {{item.giftAmt}} </view>
+           <view>元红包</view>
+        </view>
+      </swiper-item>
+     </block>
+   </swiper>
+  </view>
+
+  <view class='gift-bar'>
+
+     <view class="bar-item">
+      <view>
+       <image style="width: 90rpx; height: 90rpx;" src="/static/images/Avatar-Placeholder.png"></image>
+      </view>
+      <view style='width:53%;margin:10rpx 20rpx'>
+       <view style='font-size:28rpx'>邀请好友成为助农大使</view>
+       <view style='font-size:24rpx;color:#FF4951;line-height: 32rpx;'>邀请一人即可获得 0.1～10 元不等红包</view>
+      </view>
+      <button class="go-share" open-type="share">
+       <view style='margin-top:3rpx'>去邀请</view>
+      </button>
+     </view>
+
+    <view class="bar-item">
+      <view>
+       <image style="width: 90rpx; height: 90rpx;" src="/static/images/Avatar-Placeholder1.png"></image>
+      </view>
+      <view style='width:53%;margin:10rpx 20rpx'>
+       <view style='font-size:28rpx'>推广助农项目赚红包</view>
+       <view style='font-size:24rpx;color:#FF4951'>好友浏览购买均可获得奖励</view>
+      </view>
+      <view class="go-share"  bindtap="clickShare">
+       <view style='margin-top:15rpx'>去分享</view>
+      </view>
+     </view>
+
+     <view class="bar-item">
+      <view>
+       <image style="width: 90rpx; height: 90rpx;" src="/static/images/Avatar-Placeholder2.png"></image>
+      </view>
+      <view style='width:53%;margin:10rpx 20rpx'>
+       <view style='font-size:28rpx;line-height: 32rpx;'>邀好友关注「帮帮爱心筹」服务号</view>
+       <view style='font-size:24rpx;color:#FF4951;line-height: 32rpx;'>邀请一人即可获得 0.1～10 元不等红包</view>
+      </view>
+      <view class="go-share" bindtap="clickComplete">
+       <view style='margin-top:15rpx'>去完成</view>
+      </view>
+     </view>
+  </view>
+
+    <view class='mask' hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
+      <view class='createPoster' bindtap="createPoster" >生成海报</view>
+      <view class='cancelPoster' bindtap="cancelPoster">取消</view>
+    </view>
+
+
+    <view class='mask' hidden="{{isgetGift}}">
+       <image style="width: 558rpx; height: 510rpx;margin-top:260rpx" src="/static/images/pcc-getallpackage.png"></image>
+       <view class='gift-top-dis'>共计 <view style='color:#F7553E;padding:0 8rpx'> {{giftNumber}} </view> 个红包</view>
+       <view class='gift-number'><view style='font-size:30rpx;margin-top:37rpx;'>￥ </view> {{getTotalAmt}}</view>
+       <view class='gift-get' bindtap='actionGetAllMoneyToPackage'></view>
+    </view>
+
+        <view class='mask' hidden="{{getOneGift}}">
+       <image style="width: 558rpx; height: 510rpx;margin-top:260rpx" src="/static/images/pcc-getallpackage.png"></image>
+       <view class='gift-top-dis'>恭喜您获得红包</view>
+       <view class='gift-number'><view style='font-size:30rpx;margin-top:37rpx;'>￥ </view> {{oneGiftAmt}}</view>
+       <view class='gift-get' bindtap='actionGetOneMoneyToPackage'></view>
+    </view>
+
+         <view class='mask' hidden="{{openGift}}"> 
+         <!-- <view class='mask'> -->
+          <swiper  previous-margin="80rpx" next-margin="80rpx" style='height: 500rpx;width: 100%;margin-top:300rpx'>
+           <block wx:for="{{giftsList}}" >
+            <swiper-item>
+             <image wx:if="{{item.type==1}}" class="slide-image"  src="/static/images/pcc-zhunong-gift.png" style='width:558rpx;height:412rpx'></image>
+             <image wx:elif="{{item.type==2}}" class="slide-image"  src="/static/images/pcc-yaoqing-gift.png" style='width:558rpx;height:412rpx'></image>
+             <image wx:elif="{{item.type==3}}" class="slide-image"  src="/static/images/pcc-liulan-gift.png" style='width:558rpx;height:412rpx'></image>
+             <image wx:elif="{{item.type==4}}" class="slide-image"  src="/static/images/pcc-goumai-gift.png" style='width:558rpx;height:412rpx'></image>
+             <image wx:elif="{{item.type==5}}" class="slide-image"  src="/static/images/pcc-guanzhu-gift.png" style='width:558rpx;height:412rpx'></image>
+             <view class='open-gift' data-ID='{{item.ID}}' data-type='{{item.type}}'  data-giftAmt='{{item.giftAmt}}' bindtap="actionOpneOneGift"></view>    
+            </swiper-item>
+           </block>
+           </swiper>
+          <view class='open-allgift' bindtap="actionOpneAllGift">一键领取</view>    
+    </view>
+  </view>
+
+<view class="modals-contain" wx:if="{{ mask }}">
+  <view class="checkAuthTitle">
+    微信授权
+  </view>
+  <view class="checkAuthContent">
+    帮帮爱心筹申请获取公开信息 (拒绝授权则无法使用帮帮爱心筹支持项目)
+  </view>
+  <view style="display:flex;">
+    <view class="checkAuthButton" bindtap='hideMask'>
+      <button style="background: #fff;">拒绝</button>
+    </view>
+    <view class="checkAuthButton" bindtap='hideMask' style="color: #35A0FB;border:none">
+      <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="background: #fff;color: #35A0FB">允许</button>
+    </view>
+  </view>
+</view>
+<view class="mask" wx:if="{{ mask }}"></view>

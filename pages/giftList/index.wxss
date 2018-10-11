@@ -1,0 +1,28 @@
+/**index.wxss**/
+.section {
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+.bar-item{
+  width: 92%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 4%; 
+  border-bottom: 1rpx solid #DDDCE0;
+}
+.gift-center{
+ color:#8A8A8F;
+ font-size:28rpx;
+ padding: 25rpx;
+ border-bottom: 1rpx solid #DDDCE0;
+}
+.bar-item-left{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
