@@ -20,7 +20,7 @@ function getPromise(data,url){
   return new Promise((resolve, reject) => {
     var that = this;
     wx.request({
-      url: 'http://ztbapi/' + url,
+      url: 'https://api.weixingongchang.com/' + url,
       data: data,
       dataType: 'json',
       header: {
